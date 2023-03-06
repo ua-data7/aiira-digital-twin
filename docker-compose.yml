@@ -11,10 +11,10 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   django:
-    build: .
+    build: ./django
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/code
+      - ./django:/code
     ports:
       - "8000:8000"
     environment:
@@ -23,3 +23,20 @@ services:
       - POSTGRES_PASSWORD=postgres
     depends_on:
       - postgres
+  #  frontend:
+  #   container_name: frontend
+  #   build:
+  #     context: frontend
+  #     dockerfile: Dockerfile
+  #   networks:
+  #     - core
+  #   command:
+  #     "npm run dev"
+  #   volumes:
+  #     - ./frontend:/frontend
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - node-modules:/frontend/node_modules
+  #   ports:
+  #     - 3010:3010
+  #   links:
+  #     - backend:backend
