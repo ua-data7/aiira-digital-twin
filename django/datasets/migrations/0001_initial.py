@@ -4,21 +4,33 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Dataset',
+            name="Dataset",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('display_name', models.CharField(max_length=100)),
-                ('description', models.TextField()),
-                ('data_store_path', models.CharField(max_length=255)),
-                ('permissions', models.CharField(choices=[('public', 'Public'), ('private', 'Private')], max_length=7)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("display_name", models.CharField(max_length=100)),
+                ("description", models.TextField()),
+                ("data_store_path", models.CharField(max_length=255)),
+                (
+                    "permissions",
+                    models.CharField(
+                        choices=[("public", "Public"), ("private", "Private")],
+                        max_length=7,
+                    ),
+                ),
             ],
         ),
     ]
