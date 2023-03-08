@@ -15,3 +15,4 @@ class DatasetRetrieveSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Dataset
+        fields = "__all__"

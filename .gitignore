@@ -1,1 +1,3 @@
 django/digital_twin/settings/local.py
+.vscode/*
+.devcontainer/*

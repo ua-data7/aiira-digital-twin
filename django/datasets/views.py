@@ -11,6 +11,7 @@ from rest_framework import generics
 
 from .models import Dataset
 from .serializers import DatasetListSerializer, DatasetRetrieveSerializer
+from .helpers import format_size
 
 
 class DatasetListView(generics.ListAPIView):
@@ -21,20 +22,10 @@ class DatasetListView(generics.ListAPIView):
     serializer_class = DatasetListSerializer
 
 
-def format_size(num, suffix="B"):
-    """"""
-    for unit in ["", "K", "M", "G", "T", "P", "E", "Z"]:
-        if abs(num) < 1024.0:
-            return "%3.1f%s%s" % (num, unit, suffix)
-        num /= 1024.0
-    return "%.1f %s%s" % (num, "Yi", suffix)
-
-
 class DatasetRetrieveView(generics.RetrieveAPIView):
     """ """
 
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
     queryset = Dataset.objects.all()
     serializer_class = DatasetRetrieveSerializer
 
@@ -44,14 +35,17 @@ class DatasetDirectoryView(APIView):
 
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def get(self, request):
+    def get(self, request, pk):
         """
         Returns all files and folders in the specified directory.
+
+        See CyVerse Terrain API Documentation:
+        https://de.cyverse.org/terrain/docs/index.html#!/filesystem/get_terrain_filesystem_paged_directory
         """
 
-        path = request.GET.get(
-            "path", "/iplant/home/shared/commons_repo/curated/mosaic_raamp2"
-        )
+        dataset = Dataset.objects.get(pk=pk)
+
+        path = request.GET.get("path", dataset.data_store_path)
 
         query_params = {
             "path": path,
@@ -62,7 +56,8 @@ class DatasetDirectoryView(APIView):
         try:
             url = "https://de.cyverse.org/terrain/filesystem/paged-directory"
             res = requests.get(url, params=query_params)
-            res.raise_for_status()
+            # res.raise_for_status()
+            print(res)
 
             file_list = []
 
@@ -81,7 +76,7 @@ class DatasetDirectoryView(APIView):
                     }
                 )
 
-            for item in r.json()["files"]:
+            for item in res.json()["files"]:
                 updated = time.strftime(
                     "%Y-%m-%d %H:%M:%S", time.gmtime(item["date-modified"] / 1000.0)
                 )
@@ -99,10 +94,11 @@ class DatasetDirectoryView(APIView):
                     }
                 )
 
-            response = {"fileList": file_list, "currentPath": path}
+            response = {"file_list": file_list, "current_path": path}
 
             return Response(response)
 
-        except Exception as e:
-            print(e)
-            return HttpResponse(e)
+        except requests.exceptions.RequestException as e:  # This is the correct syntax
+            raise (e)
+            # print(e)
+            # return HttpResponse(e)
