@@ -23,20 +23,9 @@ services:
       - POSTGRES_PASSWORD=postgres
     depends_on:
       - postgres
-  #  frontend:
-  #   container_name: frontend
-  #   build:
-  #     context: frontend
-  #     dockerfile: Dockerfile
-  #   networks:
-  #     - core
-  #   command:
-  #     "npm run dev"
-  #   volumes:
-  #     - ./frontend:/frontend
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - node-modules:/frontend/node_modules
-  #   ports:
-  #     - 3010:3010
-  #   links:
-  #     - backend:backend
+  frontend:
+    build: ./frontend
+    ports:
+      - "3005:3005"
+    volumes:
+      - ./frontend:/frontend

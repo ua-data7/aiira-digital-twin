@@ -3,9 +3,20 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 
+import { useState, useEffect } from 'react';
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  const [datasets, setDatasets] = useState()
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/datasets/').then(res => res.json()).then(data => {
+      console.log(data)
+    });
+  }, []);
+
   return (
     <>
       <Head>
