@@ -23,7 +23,7 @@ class DatasetListView(generics.ListAPIView):
 
 
 class DatasetRetrieveView(generics.RetrieveAPIView):
-    """ """
+    """Retrieves a single Dataset."""
 
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Dataset.objects.all()
@@ -45,6 +45,7 @@ class DatasetDirectoryView(APIView):
 
         dataset = Dataset.objects.get(pk=pk)
 
+        # if path isn't specified, use the base path for this dataset
         path = request.GET.get("path", dataset.data_store_path)
 
         query_params = {
@@ -54,10 +55,9 @@ class DatasetDirectoryView(APIView):
         }
 
         try:
+            # Terrain endpoint for public datasets
             url = "https://de.cyverse.org/terrain/filesystem/paged-directory"
             res = requests.get(url, params=query_params)
-            # res.raise_for_status()
-            print(res)
 
             file_list = []
 
@@ -98,7 +98,5 @@ class DatasetDirectoryView(APIView):
 
             return Response(response)
 
-        except requests.exceptions.RequestException as e:  # This is the correct syntax
-            raise (e)
-            # print(e)
-            # return HttpResponse(e)
+        except requests.exceptions.RequestException as exception:
+            raise (exception)
