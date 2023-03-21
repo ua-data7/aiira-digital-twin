@@ -10,7 +10,7 @@ from rest_framework import permissions
 from rest_framework import generics
 
 from .models import Dataset
-from .serializers import DatasetListSerializer, DatasetRetrieveSerializer
+from .serializers import DatasetSerializer
 from .helpers import format_size
 
 
@@ -19,7 +19,7 @@ class DatasetListView(generics.ListAPIView):
 
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Dataset.objects.all()
-    serializer_class = DatasetListSerializer
+    serializer_class = DatasetSerializer
 
 
 class DatasetRetrieveView(generics.RetrieveAPIView):
@@ -27,7 +27,7 @@ class DatasetRetrieveView(generics.RetrieveAPIView):
 
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Dataset.objects.all()
-    serializer_class = DatasetRetrieveSerializer
+    serializer_class = DatasetSerializer
 
 
 class DatasetDirectoryView(APIView):

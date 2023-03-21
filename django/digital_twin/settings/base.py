@@ -28,6 +28,7 @@ DEBUG = True
 
 INSTALLED_APPS = [
     "datasets.apps.DatasetsConfig",
+    "software.apps.SoftwareConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
