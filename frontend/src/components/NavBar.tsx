@@ -61,7 +61,11 @@ export default function NavBar() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Center>
-            <Image src="logos/aiira-logo.png" htmlWidth="30px" alt="AIIRA Logo"></Image>
+            <Image
+              src="logos/aiira-logo.png"
+              htmlWidth="30px"
+              alt="AIIRA Logo"
+            ></Image>
 
             <Text
               textAlign={useBreakpointValue({ base: "center", md: "left" })}
@@ -280,14 +284,14 @@ interface NavItem {
 const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Datasets",
-    href: "#",
+    href: "/datasets",
   },
   {
     label: "Apps",
-    href: "#",
+    href: "/apps",
   },
   {
-    label: "Code",
-    href: "#",
+    label: "Software",
+    href: "/software",
   },
 ];
