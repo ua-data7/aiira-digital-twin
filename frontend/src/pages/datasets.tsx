@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-
 import DatasetList from "@/components/datasets/DatasetList";
+
 import type { DatasetArray } from "@/components/datasets/DatasetTypes";
 
 /**
- * Homepage for application.
- * Path: /
+ * Datasets page
+ * Path: /datasets
  */
-export default function Home() {
+export default function Datasets() {
   const [loading, setLoading] = useState(true);
   const [datasets, setDatasets] = useState<DatasetArray | null>(null);
 
@@ -22,7 +22,11 @@ export default function Home() {
 
   return (
     <>
-      {!loading && datasets && <DatasetList datasets={datasets}></DatasetList>}
+      <main>
+        {!loading && datasets && (
+          <DatasetList datasets={datasets}></DatasetList>
+        )}
+      </main>
     </>
   );
 }

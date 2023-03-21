@@ -7,7 +7,7 @@ class DatasetListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Dataset
-        fields = ["display_name", "description"]
+        fields = "__all__"
 
 
 class DatasetRetrieveSerializer(serializers.ModelSerializer):
