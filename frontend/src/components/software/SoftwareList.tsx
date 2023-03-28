@@ -3,7 +3,7 @@ import { Box, Stack, Heading, Container, SimpleGrid } from "@chakra-ui/react";
 import SoftwareCard from "./SoftwareCard";
 import type { SoftwareArray, ApplicationArray } from "./SoftwareTypes";
 
-import { Icon } from '@chakra-ui/react'
+import { Icon } from "@chakra-ui/react";
 import { TbCode, TbApps } from "react-icons/tb";
 
 type SoftwareListProps = {
@@ -23,7 +23,12 @@ export default function SoftwareList({
             lineHeight={1.1}
             fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "4xl" }}
           >
-            {title} <Icon boxSize={6} as={title === 'Apps' ? TbApps : TbCode} color="brand.300" />
+            {title}{" "}
+            <Icon
+              boxSize={6}
+              as={title === "Apps" ? TbApps : TbCode}
+              color="brand.300"
+            />
           </Heading>
           <SimpleGrid columns={1} spacing="40px">
             <>

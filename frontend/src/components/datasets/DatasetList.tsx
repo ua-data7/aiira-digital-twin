@@ -3,9 +3,8 @@ import { Box, Stack, Heading, Container, SimpleGrid } from "@chakra-ui/react";
 import DatasetCard from "./DatasetCard";
 import type { DatasetArray } from "./DatasetTypes";
 
-import { Icon } from '@chakra-ui/react'
+import { Icon } from "@chakra-ui/react";
 import { TbPlant } from "react-icons/tb";
-
 
 type DatasetListProps = {
   datasets: DatasetArray;

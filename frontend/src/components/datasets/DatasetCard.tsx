@@ -37,7 +37,6 @@ export default function DatasetCard({ dataset }: DatasetCardProps) {
         </CardBody>
 
         <CardFooter>
-
           <Button
             as={"a"}
             display={{ base: "none", md: "inline-flex" }}
@@ -54,6 +53,6 @@ export default function DatasetCard({ dataset }: DatasetCardProps) {
           </Button>
         </CardFooter>
       </Stack>
-    </Card >
+    </Card>
   );
 }

@@ -63,7 +63,7 @@ export default function NavBar() {
           <Center>
             <Image
               src="/logos/aiira-logo.png"
-              htmlWidth="50px"
+              htmlWidth="60px"
               alt="AIIRA Logo"
             ></Image>
 
@@ -106,7 +106,7 @@ export default function NavBar() {
             bg={"brand.100"}
             href={"#"}
             _hover={{
-              bg: "pink.300",
+              bg: "brand.500",
             }}
           >
             Sign In
