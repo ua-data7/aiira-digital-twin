@@ -8,9 +8,12 @@ export default function App({ Component, pageProps }: AppProps) {
   const theme = extendTheme({
     colors: {
       brand: {
-        100: "#0f5877",
-        800: "#153e75",
-        700: "#2a69ac",
+        100: "#0f5877", // aiira-btn-blue
+        200: "#1f4555", // aiira-dark-blue
+        300: "#2e9f48", // aiira-green-dark
+        400: "#5dbc51", // aiira-green-light
+        500: "#2581c4", // aiira-light-blue
+        600: "#dee2e6", // aiira-light-grey
       },
     },
   });

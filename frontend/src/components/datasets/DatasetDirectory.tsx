@@ -5,6 +5,13 @@ import { FcFolder, FcFile } from "react-icons/fc";
 import type { Dataset, DirectoryArray } from "./DatasetTypes";
 
 import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+} from '@chakra-ui/react'
+
+import {
   Table,
   Thead,
   Tbody,
@@ -18,12 +25,18 @@ import {
 type DatasetDirectoryProps = {
   dataset: Dataset;
   directory: DirectoryArray;
+  currentPath: string;
 };
 
 export default function DatasetDirectory({
   dataset,
   directory,
+  currentPath
 }: DatasetDirectoryProps) {
+
+
+
+
   return (
     <Box position={"relative"}>
       <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 16 }}>
@@ -46,6 +59,19 @@ export default function DatasetDirectory({
         </Stack>
 
         <Stack marginTop={12}>
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <BreadcrumbLink href='#'>Home</BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbItem>
+              <BreadcrumbLink href='#'>Docs</BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbItem isCurrentPage>
+              <BreadcrumbLink href='#'>Breadcrumb</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
           <TableContainer>
             <Table variant="simple">
               <Thead>

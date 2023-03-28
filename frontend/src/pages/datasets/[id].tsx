@@ -15,6 +15,7 @@ export default function DatasetDetail({ id }: DatasetDetailProps) {
   const [loadingDirectory, setLoadingDirectory] = useState(true);
   const [dataset, setDataset] = useState();
   const [directory, setDirectory] = useState();
+  const [currentPath, setCurrentPath] = useState();
 
   useEffect(() => {
     fetch(`http://localhost:8000/api/datasets/${id}`)
@@ -29,6 +30,7 @@ export default function DatasetDetail({ id }: DatasetDetailProps) {
       .then((res) => res.json())
       .then((data) => {
         setDirectory(data.file_list);
+        setCurrentPath(data.current_path);
         console.log(data.file_list);
         setLoadingDirectory(false);
       });
@@ -38,7 +40,7 @@ export default function DatasetDetail({ id }: DatasetDetailProps) {
     <>
       <main>
         {!loadingDataset && !loadingDirectory && dataset && directory && (
-          <DatasetDirectory dataset={dataset} directory={directory} />
+          <DatasetDirectory dataset={dataset} directory={directory} currentPath={currentPath} />
         )}
       </main>
     </>
