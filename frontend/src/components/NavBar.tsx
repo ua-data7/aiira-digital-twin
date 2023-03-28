@@ -62,8 +62,8 @@ export default function NavBar() {
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Center>
             <Image
-              src="logos/aiira-logo.png"
-              htmlWidth="30px"
+              src="/logos/aiira-logo.png"
+              htmlWidth="50px"
               alt="AIIRA Logo"
             ></Image>
 
@@ -73,7 +73,7 @@ export default function NavBar() {
               color={useColorModeValue("gray.800", "white")}
               ml={3}
             >
-              AIIRA Digital Twin
+              <b>AIIRA Digital Twin</b>
             </Text>
           </Center>
 
@@ -88,7 +88,7 @@ export default function NavBar() {
           direction={"row"}
           spacing={6}
         >
-          <Button
+          {/* <Button
             as={"a"}
             fontSize={"sm"}
             fontWeight={400}
@@ -96,7 +96,7 @@ export default function NavBar() {
             href={"#"}
           >
             Sign In
-          </Button>
+          </Button> */}
           <Button
             as={"a"}
             display={{ base: "none", md: "inline-flex" }}
@@ -109,7 +109,7 @@ export default function NavBar() {
               bg: "pink.300",
             }}
           >
-            Sign Up
+            Sign In
           </Button>
         </Stack>
       </Flex>

@@ -134,4 +134,4 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ORIGIN_WHITELIST = ["http://localhost:3005"]
+CORS_ORIGIN_WHITELIST = ["http://localhost:3005", "http://127.0.0.1:3005"]

@@ -25,7 +25,11 @@ services:
       - postgres
   frontend:
     build: ./frontend
+    command: npm run dev
     ports:
       - "3005:3005"
     volumes:
       - ./frontend:/frontend
+    depends_on:
+      - postgres
+      - django

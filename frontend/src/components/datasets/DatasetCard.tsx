@@ -37,7 +37,12 @@ export default function DatasetCard({ dataset }: DatasetCardProps) {
         </CardBody>
 
         <CardFooter>
-          <Button variant="solid" colorScheme="blue">
+          <Button
+            variant="solid"
+            colorScheme="blue"
+            as={"a"}
+            href={"/datasets/" + dataset.id}
+          >
             Explore Dataset
           </Button>
         </CardFooter>
