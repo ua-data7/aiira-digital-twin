@@ -16,6 +16,8 @@ import {
   useBreakpointValue,
   useDisclosure,
   Center,
+  Heading,
+  Spacer
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -60,27 +62,31 @@ export default function NavBar() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          <Center>
+          <Center as={"a"} href="/">
             <Image
               src="/logos/aiira-logo.png"
               htmlWidth="60px"
               alt="AIIRA Logo"
             ></Image>
-
-            <Text
-              textAlign={useBreakpointValue({ base: "center", md: "left" })}
-              fontFamily={"heading"}
-              color={useColorModeValue("gray.800", "white")}
-              ml={3}
-            >
-              <b>AIIRA Digital Twin</b>
-            </Text>
+            <Stack ml={3} spacing={0}>
+              <Heading size='md'>
+                AIIRA Digital Twin
+              </Heading>
+              <Heading size='xs' color={"gray.500"}>
+                AI Institute for Resilient Agriculture
+              </Heading>
+              {/* <Heading size='sm'>
+                Digital Twin
+              </Heading> */}
+            </Stack>
           </Center>
-
+          <Spacer />
           <Center display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Center>
         </Flex>
+
+        <Spacer />
 
         <Stack
           flex={{ base: 1, md: 0 }}
@@ -88,15 +94,6 @@ export default function NavBar() {
           direction={"row"}
           spacing={6}
         >
-          {/* <Button
-            as={"a"}
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            href={"#"}
-          >
-            Sign In
-          </Button> */}
           <Button
             as={"a"}
             display={{ base: "none", md: "inline-flex" }}
@@ -122,7 +119,7 @@ export default function NavBar() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue("gray.600", "gray.200");
+  const linkColor = useColorModeValue("brand.100", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
@@ -136,7 +133,7 @@ const DesktopNav = () => {
                 p={2}
                 href={navItem.href ?? "#"}
                 fontSize={"sm"}
-                fontWeight={500}
+                fontWeight={700}
                 color={linkColor}
                 _hover={{
                   textDecoration: "none",

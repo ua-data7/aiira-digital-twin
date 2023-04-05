@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import DatasetList from "@/components/datasets/DatasetList";
+import { Box, Stack, Heading, Container, SimpleGrid } from "@chakra-ui/react";
 
 import type { DatasetArray } from "@/components/datasets/DatasetTypes";
 
@@ -24,7 +25,11 @@ export default function Datasets() {
     <>
       <main>
         {!loading && datasets && (
-          <DatasetList datasets={datasets}></DatasetList>
+          <Box position={"relative"}>
+            <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 16 }}>
+              <DatasetList datasets={datasets}></DatasetList>
+            </Container>
+          </Box>
         )}
       </main>
     </>
