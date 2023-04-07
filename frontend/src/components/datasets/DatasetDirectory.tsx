@@ -34,9 +34,9 @@ export default function DatasetDirectory({
           </Tr>
         </Thead>
         <Tbody>
-          {directory.map((d) => {
+          {directory.map((d, index) => {
             return (
-              <Tr>
+              <Tr key={index}>
                 <Td>
                   {d.type === "folder" ? (
                     <Stack direction="row" spacing={3}>

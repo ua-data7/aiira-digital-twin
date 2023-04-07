@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import ReactMarkdown from 'react-markdown'
 import { Box, Stack, Heading, Container } from "@chakra-ui/react";
 
 import {
@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 import DatasetDirectory from "@/components/datasets/DatasetDirectory";
+import { Dataset } from "@/components/datasets/DatasetTypes";
 
 type DatasetDetailProps = {
   id: string;
@@ -22,15 +23,27 @@ type DatasetDetailProps = {
 export default function DatasetDetail({ id }: DatasetDetailProps) {
   const [loadingDataset, setLoadingDataset] = useState(true);
   const [loadingDirectory, setLoadingDirectory] = useState(true);
-  const [dataset, setDataset] = useState();
+  const [dataset, setDataset] = useState<Dataset | null>(null);
   const [directory, setDirectory] = useState();
   const [currentPath, setCurrentPath] = useState();
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     fetch(`http://localhost:8000/api/datasets/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setDataset(data);
+        if (data.description_file)
+          return data.description_file;
+      })
+      .then((file) => {
+        return fetch(file)
+      })
+      .then((fileContents) => {
+        return fileContents.text()
+      })
+      .then((fileText) => {
+        setDescription(fileText)
         setLoadingDataset(false);
       });
 
@@ -64,7 +77,7 @@ export default function DatasetDetail({ id }: DatasetDetailProps) {
                 >
                   {dataset.display_name}
                 </Heading>
-                <Box>{dataset.description}</Box>
+                <ReactMarkdown>{description}</ReactMarkdown>
               </Stack>
 
               <Stack marginTop={12}>

@@ -17,3 +17,6 @@ class Dataset(models.Model):
 
     data_store_path = models.CharField(max_length=255)
     permissions = models.CharField(max_length=7, choices=DatasetPermissions.choices)
+    description_file = models.FileField(upload_to='datasets/descriptions', blank=True)
+
+
