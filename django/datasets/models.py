@@ -13,6 +13,7 @@ class Dataset(models.Model):
 
     display_name = models.CharField(max_length=100)
     description = models.TextField()
+    display_image = models.ImageField(upload_to='datasets', blank=True)
 
     data_store_path = models.CharField(max_length=255)
     permissions = models.CharField(max_length=7, choices=DatasetPermissions.choices)

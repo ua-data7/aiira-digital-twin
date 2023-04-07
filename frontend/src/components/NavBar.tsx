@@ -17,7 +17,7 @@ import {
   useDisclosure,
   Center,
   Heading,
-  Spacer
+  Spacer,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -69,10 +69,8 @@ export default function NavBar() {
               alt="AIIRA Logo"
             ></Image>
             <Stack ml={3} spacing={0}>
-              <Heading size='md'>
-                AIIRA Digital Twin
-              </Heading>
-              <Heading size='xs' color={"gray.500"}>
+              <Heading size="md">AIIRA Digital Twin</Heading>
+              <Heading size="xs" color={"gray.500"}>
                 AI Institute for Resilient Agriculture
               </Heading>
               {/* <Heading size='sm'>

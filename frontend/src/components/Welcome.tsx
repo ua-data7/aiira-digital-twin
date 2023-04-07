@@ -12,7 +12,6 @@ import {
   Icon,
 } from "@chakra-ui/react";
 
-
 export default function Welcome() {
   return (
     <Box position={"relative"}>
@@ -29,7 +28,7 @@ export default function Welcome() {
             fontSize={{ base: "4xl" }}
             color={"gray.600"}
           >
-            AIIRA's mission is to build <br></br>AI-driven {" "}
+            AIIRA's mission is to build <br></br>AI-driven{" "}
             <Text
               as={"span"}
               bgGradient="linear(to-r, brand.500,brand.400)"
@@ -40,7 +39,8 @@ export default function Welcome() {
             for modeling plants.
           </Heading>
           <Heading fontSize={{ base: "xl" }} color={"gray.500"}>
-            The Digital Twin platform makes our datasets, apps, and code with the research community.
+            The Digital Twin platform makes our datasets, apps, and code with
+            the research community.
           </Heading>
 
           {/* <Button
@@ -57,7 +57,6 @@ export default function Welcome() {
           >
             Explore Datasets
           </Button> */}
-
         </Stack>
         <Stack
           bg={"gray.50"}
@@ -75,7 +74,6 @@ export default function Welcome() {
               Featured App
             </Heading>
           </Stack>
-
         </Stack>
       </Container>
       <Blur

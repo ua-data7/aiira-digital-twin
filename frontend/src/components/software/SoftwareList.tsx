@@ -1,4 +1,12 @@
-import { Box, Stack, Heading, Container, SimpleGrid, Text, Icon } from "@chakra-ui/react";
+import {
+  Box,
+  Stack,
+  Heading,
+  Container,
+  SimpleGrid,
+  Text,
+  Icon,
+} from "@chakra-ui/react";
 
 import SoftwareCard from "./SoftwareCard";
 import type { SoftwareArray, ApplicationArray } from "./SoftwareTypes";
@@ -31,7 +39,7 @@ export default function SoftwareList({
           </Heading>
           <SimpleGrid columns={1} spacing="40px">
             <>
-              {softwareList.length ?
+              {softwareList.length ? (
                 softwareList.map((software) => {
                   return (
                     <SoftwareCard
@@ -40,9 +48,9 @@ export default function SoftwareList({
                     ></SoftwareCard>
                   );
                 })
-                :
-                <Text>No { title } found.</Text>
-              }
+              ) : (
+                <Text>No {title} found.</Text>
+              )}
             </>
           </SimpleGrid>
         </Stack>

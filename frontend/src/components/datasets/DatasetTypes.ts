@@ -4,6 +4,7 @@ export interface Dataset {
   description: string;
   data_store_path: string;
   permission: string;
+  display_image: string;
 }
 [];
 

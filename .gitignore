@@ -1,3 +1,4 @@
 django/digital_twin/settings/local.py
+django/digital_twin/media/*
 .vscode/*
 .devcontainer/*
