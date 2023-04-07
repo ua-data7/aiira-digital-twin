@@ -1,9 +1,8 @@
-import { Box, Stack, Heading, Container, SimpleGrid } from "@chakra-ui/react";
+import { Box, Stack, Heading, Container, SimpleGrid, Icon, Text  } from "@chakra-ui/react";
 
 import DatasetCard from "./DatasetCard";
 import type { DatasetArray } from "./DatasetTypes";
 
-import { Icon } from "@chakra-ui/react";
 import { TbPlant } from "react-icons/tb";
 
 type DatasetListProps = {
@@ -23,7 +22,7 @@ export default function DatasetList({ datasets }: DatasetListProps) {
           </Heading>
           <SimpleGrid columns={1} spacing="40px">
             <>
-              {datasets.length &&
+              {datasets.length ? 
                 datasets.map((dataset) => {
                   return (
                     <DatasetCard
@@ -31,7 +30,10 @@ export default function DatasetList({ datasets }: DatasetListProps) {
                       dataset={dataset}
                     ></DatasetCard>
                   );
-                })}
+                })
+                :
+                <Text>No datasets.</Text>
+              }
             </>
           </SimpleGrid>
         </Stack>
