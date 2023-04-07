@@ -13,9 +13,13 @@ import type { Software } from "./SoftwareTypes";
 
 type SoftwareCardProps = {
   software: Software;
+  softwareType: string;
 };
 
-export default function SoftwareCard({ software }: SoftwareCardProps) {
+export default function SoftwareCard({
+  software,
+  softwareType,
+}: SoftwareCardProps) {
   return (
     <Card
       direction={{ base: "column", sm: "row" }}
@@ -25,8 +29,7 @@ export default function SoftwareCard({ software }: SoftwareCardProps) {
       <Image
         objectFit="cover"
         maxW={{ base: "100%", sm: "200px" }}
-        src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-        alt="Caffe Latte"
+        src={software.display_image}
       />
 
       <Stack>
@@ -37,8 +40,28 @@ export default function SoftwareCard({ software }: SoftwareCardProps) {
         </CardBody>
 
         <CardFooter>
-          <Button variant="solid" colorScheme="blue">
+          <Button
+            as={"a"}
+            variant="solid"
+            colorScheme="blue"
+            href={
+              softwareType === "app"
+                ? "/apps/" + software.id
+                : "/software/" + software.id
+            }
+          >
             Learn more
+          </Button>
+
+          <Button
+            as={"a"}
+            href={software.url}
+            target="_blank"
+            variant="outline"
+            colorScheme="blue"
+            marginLeft={2}
+          >
+            {softwareType === "app" ? "Launch" : "Download"}
           </Button>
         </CardFooter>
       </Stack>

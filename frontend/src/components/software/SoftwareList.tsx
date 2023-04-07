@@ -45,6 +45,7 @@ export default function SoftwareList({
                     <SoftwareCard
                       key={software.id}
                       software={software}
+                      softwareType={title === "Apps" ? "app" : "software"}
                     ></SoftwareCard>
                   );
                 })

@@ -1,38 +1,27 @@
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
+import { Box, Stack, Heading, Container, Button } from "@chakra-ui/react";
 
-import DatasetDirectory from "@/components/datasets/DatasetDirectory";
+import { Application } from "@/components/software/SoftwareTypes";
 
-import { Box, Stack, Heading, Container, Text } from "@chakra-ui/react";
-
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-} from "@chakra-ui/react";
-
-type DatasetDetailProps = {
+type AppDetailProps = {
   id: string;
-  path: Array<string>;
 };
 
 /**
- * Dataset Detail page
- * Path: /datasets/[id]
+ * App Detail page
+ * Path: /apps/[id]
  */
-export default function DatasetDetail({ id, path }: DatasetDetailProps) {
-  const [loadingDataset, setLoadingDataset] = useState(true);
-  const [loadingDirectory, setLoadingDirectory] = useState(true);
-  const [dataset, setDataset] = useState();
-  const [directory, setDirectory] = useState();
+export default function AppDetail({ id }: AppDetailProps) {
+  const [loading, setLoading] = useState(true);
+  const [app, setApp] = useState<Application | null>(null);
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/datasets/${id}`)
+    fetch(`http://localhost:8000/api/applications/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        setDataset(data);
+        setApp(data);
         if (data.description_file) return data.description_file;
       })
       .then((file) => {
@@ -43,25 +32,14 @@ export default function DatasetDetail({ id, path }: DatasetDetailProps) {
       })
       .then((fileText) => {
         setDescription(fileText);
-        setLoadingDataset(false);
-      });
-
-    fetch(
-      `http://localhost:8000/api/datasets/${id}/directory?path=/${path.join(
-        "/"
-      )}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setDirectory(data.file_list);
-        setLoadingDirectory(false);
+        setLoading(false);
       });
   }, []);
 
   return (
     <>
       <main>
-        {!loadingDataset && !loadingDirectory && dataset && directory && (
+        {!loading && app && (
           <Box position={"relative"}>
             <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 16 }}>
               <Stack spacing={{ base: 10, md: 7 }}>
@@ -70,8 +48,9 @@ export default function DatasetDetail({ id, path }: DatasetDetailProps) {
                   fontSize={{ base: "2xl", sm: "4xl", md: "4xl", lg: "2xl" }}
                   color="brand.800"
                 >
-                  Datasets
+                  Apps
                 </Heading>
+
                 <Box
                   maxWidth={"90%"}
                   borderWidth="1px"
@@ -79,7 +58,7 @@ export default function DatasetDetail({ id, path }: DatasetDetailProps) {
                   padding={5}
                   bg={"gray.100"}
                 >
-                  <Stack spacing={{ base: 10, md: 7 }}>
+                  <Stack spacing={{ base: 10, md: 7 }} align="flex-start">
                     <Heading
                       lineHeight={1.1}
                       fontSize={{
@@ -90,28 +69,21 @@ export default function DatasetDetail({ id, path }: DatasetDetailProps) {
                       }}
                       color="brand.800"
                     >
-                      {dataset.display_name}
+                      {app.display_name}
                     </Heading>
                     <ReactMarkdown>{description}</ReactMarkdown>
+                    <Button
+                      as={"a"}
+                      href={app.url}
+                      target="_blank"
+                      // variant="outline"
+                      colorScheme="blue"
+                      marginLeft={2}
+                    >
+                      Launch App
+                    </Button>
                   </Stack>
                 </Box>
-              </Stack>
-
-              <Stack marginTop={12}>
-                {/* <Breadcrumb>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink href="#">Home</BreadcrumbLink>
-                  </BreadcrumbItem>
-
-                  <BreadcrumbItem>
-                    <BreadcrumbLink href="#">Docs</BreadcrumbLink>
-                  </BreadcrumbItem>
-
-                  <BreadcrumbItem isCurrentPage>
-                    <BreadcrumbLink href="#">Breadcrumb</BreadcrumbLink>
-                  </BreadcrumbItem>
-                </Breadcrumb> */}
-                <DatasetDirectory dataset={dataset} directory={directory} />
               </Stack>
             </Container>
           </Box>
@@ -125,7 +97,7 @@ export default function DatasetDetail({ id, path }: DatasetDetailProps) {
 export async function getServerSideProps({
   params,
 }: {
-  params: { id: string; path: string };
+  params: { id: string };
 }) {
   // Call an external API endpoint to get posts
   // const res = await axios.get(`http://127.0.0.1:8000/api/datasets/${params.id}`)
@@ -136,7 +108,6 @@ export async function getServerSideProps({
   return {
     props: {
       id: params.id,
-      path: params.path,
     },
   };
 }

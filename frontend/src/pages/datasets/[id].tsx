@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from "react-markdown";
 import { Box, Stack, Heading, Container } from "@chakra-ui/react";
 
 import {
@@ -33,17 +33,16 @@ export default function DatasetDetail({ id }: DatasetDetailProps) {
       .then((res) => res.json())
       .then((data) => {
         setDataset(data);
-        if (data.description_file)
-          return data.description_file;
+        if (data.description_file) return data.description_file;
       })
       .then((file) => {
-        return fetch(file)
+        return fetch(file);
       })
       .then((fileContents) => {
-        return fileContents.text()
+        return fileContents.text();
       })
       .then((fileText) => {
-        setDescription(fileText)
+        setDescription(fileText);
         setLoadingDataset(false);
       });
 
@@ -70,18 +69,34 @@ export default function DatasetDetail({ id }: DatasetDetailProps) {
                 >
                   Datasets
                 </Heading>
-                <Heading
-                  lineHeight={1.1}
-                  fontSize={{ base: "3xl", sm: "4xl", md: "4xl", lg: "3xl" }}
-                  color="brand.800"
+
+                <Box
+                  maxWidth={"90%"}
+                  borderWidth="1px"
+                  borderRadius={"2xl"}
+                  padding={5}
+                  bg={"gray.100"}
                 >
-                  {dataset.display_name}
-                </Heading>
-                <ReactMarkdown>{description}</ReactMarkdown>
+                  <Stack spacing={{ base: 10, md: 7 }}>
+                    <Heading
+                      lineHeight={1.1}
+                      fontSize={{
+                        base: "3xl",
+                        sm: "4xl",
+                        md: "4xl",
+                        lg: "3xl",
+                      }}
+                      color="brand.800"
+                    >
+                      {dataset.display_name}
+                    </Heading>
+                    <ReactMarkdown>{description}</ReactMarkdown>
+                  </Stack>
+                </Box>
               </Stack>
 
               <Stack marginTop={12}>
-                <Breadcrumb>
+                {/* <Breadcrumb>
                   <BreadcrumbItem>
                     <BreadcrumbLink href="#">Home</BreadcrumbLink>
                   </BreadcrumbItem>
@@ -93,7 +108,7 @@ export default function DatasetDetail({ id }: DatasetDetailProps) {
                   <BreadcrumbItem isCurrentPage>
                     <BreadcrumbLink href="#">Breadcrumb</BreadcrumbLink>
                   </BreadcrumbItem>
-                </Breadcrumb>
+                </Breadcrumb> */}
                 <DatasetDirectory
                   dataset={dataset}
                   directory={directory}

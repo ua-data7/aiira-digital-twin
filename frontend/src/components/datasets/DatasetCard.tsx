@@ -37,12 +37,12 @@ export default function DatasetCard({ dataset }: DatasetCardProps) {
         <CardFooter>
           <Button
             as={"a"}
+            href={"/datasets/" + dataset.id}
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
             fontWeight={600}
             color={"white"}
             bg={"brand.100"}
-            href={"/datasets/" + dataset.id}
             _hover={{
               bg: "brand.300",
             }}

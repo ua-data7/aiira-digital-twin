@@ -13,6 +13,8 @@ class Application(models.Model):
 
     display_name = models.CharField(max_length=100)
     description = models.TextField()
+    display_image = models.ImageField(upload_to='software/images', blank=True)
+    description_file = models.FileField(upload_to='software/descriptions', blank=True)
 
     url = models.URLField(max_length=255)
     application_type = models.CharField(max_length=4, choices=ApplicationTypes.choices)
@@ -23,5 +25,7 @@ class Software(models.Model):
 
     display_name = models.CharField(max_length=100)
     description = models.TextField()
+    display_image = models.ImageField(upload_to='software/images', blank=True)
+    description_file = models.FileField(upload_to='datasets/descriptions', blank=True)
 
     url = models.URLField(max_length=255)

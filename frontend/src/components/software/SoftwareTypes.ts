@@ -3,6 +3,8 @@ export interface Software {
   display_name: string;
   description: string;
   url: string;
+  display_image: string;
+  description_file: string;
 }
 [];
 
@@ -14,6 +16,8 @@ export interface Application {
   description: string;
   url: string;
   application_type: string;
+  display_image: string;
+  description_file: string;
 }
 [];
 
