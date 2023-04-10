@@ -2,6 +2,7 @@ import Head from "next/head";
 import { ReactNode } from "react";
 
 import NavBar from "./NavBar";
+import Footer from "./Footer";
 
 type LayoutProps = { children?: ReactNode };
 
@@ -16,6 +17,7 @@ export default function Layout({ children }: LayoutProps) {
       </Head>
       <NavBar />
       <main>{children}</main>
+      <Footer></Footer>
     </>
   );
 }

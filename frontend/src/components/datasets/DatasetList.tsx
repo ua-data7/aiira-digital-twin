@@ -20,8 +20,8 @@ type DatasetListProps = {
 export default function DatasetList({ datasets }: DatasetListProps) {
   return (
     <Box position={"relative"}>
-      <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 16 }}>
-        <Stack spacing={{ base: 10, md: 20 }}>
+      <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 8 }}>
+        <Stack spacing={{ base: 10, md: 10 }}>
           <Heading
             lineHeight={1.1}
             fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "4xl" }}

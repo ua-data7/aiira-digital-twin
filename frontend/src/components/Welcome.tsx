@@ -39,8 +39,8 @@ export default function Welcome() {
             for modeling plants.
           </Heading>
           <Heading fontSize={{ base: "xl" }} color={"gray.500"}>
-            The Digital Twin platform makes our datasets, apps, and code with
-            the research community.
+            The Digital Twin platform makes our datasets, apps, and code
+            available to the research community.
           </Heading>
 
           {/* <Button

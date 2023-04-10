@@ -4,7 +4,7 @@ import DatasetList from "@/components/datasets/DatasetList";
 import type { DatasetArray } from "@/components/datasets/DatasetTypes";
 
 import Welcome from "@/components/Welcome";
-import { Box, Container, Divider, SimpleGrid } from "@chakra-ui/react";
+import { Box, Container, Divider } from "@chakra-ui/react";
 
 /**
  * Homepage for application.
@@ -33,7 +33,7 @@ export default function Home() {
       >
         <Welcome></Welcome>
         <Divider></Divider>
-        <Box py={{ base: 10, sm: 20, lg: 10 }} px={{ base: 10, sm: 20, lg: 5 }}>
+        <Box py={{ base: 10, sm: 20, lg: 10 }} px={{ base: 5, sm: 5, lg: 5 }}>
           {!loading && datasets && (
             <DatasetList datasets={datasets}></DatasetList>
           )}
