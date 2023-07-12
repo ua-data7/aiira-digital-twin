@@ -16,7 +16,7 @@ AIIRA Digital Twin is a web application for displaying a collection of apps and 
    ```bash
    docker compose exec django python manage.py migrate --noinput
    ```
-5. To verify everything is running correctly, check that you can view the NextJS app at http://localhost:3000 (though no content will be populated yet) and the Django admin login page at http://localhost:8000.
+5. To verify everything is running correctly, check that you can view the NextJS app at http://localhost:3005 (though no content will be populated yet) and the Django admin login page at http://localhost:8000.
 6. To add site content, we will use the Django admin. Create a Django superuser (has all permissions) with the following command. You will be prompted for a username, email address, and password.
 
    ```bash
@@ -49,7 +49,7 @@ To add a Dataset, fill the fields as follows:
 
 Adding Software and Applications is similar.
 
-Navigate to `localhost:3000` and you can view the list of datasets, and when you select one you can see the details of the dataset (similar for software and apps).
+Navigate to `localhost:3005` and you can view the list of datasets, and when you select one you can see the details of the dataset (similar for software and apps).
 
 ![Dataset list](docs/media/datasets.png)
 
