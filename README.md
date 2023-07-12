@@ -37,7 +37,7 @@ To add a Dataset, fill the fields as follows:
 
 **Description**: Short description of the dataset that will be shown in the list of datasets. Does not need to include all info about the dataset - full details of the dataset can go in the `Description File` field.
 
-**Display image**: Display image for the dataset, 
+**Display image**: Display image for the dataset.
 
 **Data store path**: Path to the dataset folder on the CyVerse datastore.  Should start with `/iplant/home/...`
 
@@ -48,6 +48,16 @@ To add a Dataset, fill the fields as follows:
 ![Add dataset](docs/media/add-dataset.png)
 
 Adding Software and Applications is similar.
+
+Navigate to `localhost:3000` and you can view the list of datasets, and when you select one you can see the details of the dataset (similar for software and apps).
+
+![Dataset list](docs/media/datasets.png)
+
+![Dataset list](docs/media/dataset-detail.png)
+
+
+
+
 
 
 
