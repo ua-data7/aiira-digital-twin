@@ -92,20 +92,20 @@ export default function NavBar() {
           direction={"row"}
           spacing={6}
         >
-          {/* <Button
+          <Button
             as={"a"}
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
             fontWeight={600}
             color={"white"}
             bg={"brand.100"}
-            href={"#"}
+            href={"https://aiira.iastate.edu/"}
             _hover={{
               bg: "brand.500",
             }}
           >
-            Sign In
-          </Button> */}
+            Back to AIIRA Homepage
+          </Button>
         </Stack>
       </Flex>
 
