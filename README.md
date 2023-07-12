@@ -33,14 +33,21 @@ Once logged into the Django admin, you can add Datasets, Software, and Apps. You
 
 To add a Dataset, fill the fields as follows:
 
-Display name:
-Description:
-Display image:
-Data store path:
-Permissions:
-Description file: Markdown file
+**Display name**: Name of the dataset.
+
+**Description**: Short description of the dataset that will be shown in the list of datasets. Does not need to include all info about the dataset - full details of the dataset can go in the `Description File` field.
+
+**Display image**: Display image for the dataset, 
+
+**Data store path**: Path to the dataset folder on the CyVerse datastore.  Should start with `/iplant/home/...`
+
+**Permissions**: Only public datasets are supported currently, so select `Public`.
+
+**Description file**: Must be a Markdown (`.md`) file.  This is where you can write a longer description of the dataset, including acknowledgements, etc.
 
 ![Add dataset](docs/media/add-dataset.png)
+
+Adding Software and Applications is similar.
 
 
 
