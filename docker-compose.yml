@@ -15,8 +15,8 @@ services:
     build: ./django
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./django:/code
-      - /code/digital_twin/static
+      - ./django:/django
+      - /django/digital_twin/static
     ports:
       - "8000:8000"
     environment:
