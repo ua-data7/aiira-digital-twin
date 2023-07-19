@@ -3,14 +3,10 @@ import ReactMarkdown from "react-markdown";
 
 import DatasetDirectory from "@/components/datasets/DatasetDirectory";
 
-import { Box, Stack, Heading, Container, Text } from "@chakra-ui/react";
+import { Box, Stack, Heading, Container } from "@chakra-ui/react";
 
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-} from "@chakra-ui/react";
+import axios from "@/axios";
+import { Dataset } from "@/components/datasets/DatasetTypes";
 
 type DatasetDetailProps = {
   id: string;
@@ -24,16 +20,16 @@ type DatasetDetailProps = {
 export default function DatasetDetail({ id, path }: DatasetDetailProps) {
   const [loadingDataset, setLoadingDataset] = useState(true);
   const [loadingDirectory, setLoadingDirectory] = useState(true);
-  const [dataset, setDataset] = useState();
+  const [dataset, setDataset] = useState<Dataset | null>(null);
   const [directory, setDirectory] = useState();
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/datasets/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setDataset(data);
-        if (data.description_file) return data.description_file;
+    axios
+      .get(`/api/datasets/${id}`)
+      .then((res) => {
+        setDataset(res.data);
+        if (res.data.description_file) return res.data.description_file;
       })
       .then((file) => {
         return fetch(file);
@@ -111,7 +107,11 @@ export default function DatasetDetail({ id, path }: DatasetDetailProps) {
                     <BreadcrumbLink href="#">Breadcrumb</BreadcrumbLink>
                   </BreadcrumbItem>
                 </Breadcrumb> */}
-                <DatasetDirectory dataset={dataset} directory={directory} />
+                <DatasetDirectory
+                  dataset={dataset}
+                  directory={directory}
+                  currentPath=""
+                />
               </Stack>
             </Container>
           </Box>

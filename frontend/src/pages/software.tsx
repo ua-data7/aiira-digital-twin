@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import type { SoftwareArray } from "@/components/software/SoftwareTypes";
 import SoftwareList from "@/components/software/SoftwareList";
 
+import axios from "@/axios";
+
 /**
  * Software page
  * Path: /software
@@ -12,12 +14,10 @@ export default function Software() {
   const [software, setSoftware] = useState<SoftwareArray | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/software")
-      .then((res) => res.json())
-      .then((data) => {
-        setSoftware(data);
-        setLoading(false);
-      });
+    axios.get("/api/software").then((res) => {
+      setSoftware(res.data);
+      setLoading(false);
+    });
   }, []);
 
   return (

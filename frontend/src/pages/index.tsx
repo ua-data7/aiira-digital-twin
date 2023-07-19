@@ -25,12 +25,7 @@ export default function Home() {
 
   return (
     <Box position={"relative"}>
-      <Container
-        maxW={"7xl"}
-        columns={{ base: 1, md: 2 }}
-        spacing={{ base: 10, lg: 32 }}
-        py={{ base: 10, sm: 20, lg: 10 }}
-      >
+      <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 10 }}>
         <Welcome></Welcome>
         <Divider></Divider>
         <Box py={{ base: 10, sm: 20, lg: 10 }} px={{ base: 5, sm: 5, lg: 5 }}>

@@ -28,7 +28,7 @@ export default function Welcome() {
             fontSize={{ base: "4xl" }}
             color={"gray.600"}
           >
-            AIIRA's mission is to build <br></br>AI-driven{" "}
+            AIIRA&apos;s mission is to build <br></br>AI-driven{" "}
             <Text
               as={"span"}
               bgGradient="linear(to-r, brand.500,brand.400)"

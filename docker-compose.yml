@@ -28,6 +28,9 @@ services:
   frontend:
     build: ./frontend
     command: npm run dev
+    environment:
+      - NEXT_PUBLIC_API_URL=http://127.0.01:8000
+      - NEXT_PUBLIC_SSR_API_URL=http://django:8000
     ports:
       - "3005:3005"
     volumes:

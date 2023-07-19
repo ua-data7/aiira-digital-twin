@@ -25,7 +25,7 @@ export default function DatasetDetail({ id }: DatasetDetailProps) {
   const [loadingDirectory, setLoadingDirectory] = useState(true);
   const [dataset, setDataset] = useState<Dataset | null>(null);
   const [directory, setDirectory] = useState();
-  const [currentPath, setCurrentPath] = useState();
+  const [currentPath, setCurrentPath] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {

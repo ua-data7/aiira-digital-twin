@@ -17,6 +17,7 @@ import type { Dataset, DirectoryArray } from "./DatasetTypes";
 type DatasetDirectoryProps = {
   dataset: Dataset;
   directory: DirectoryArray;
+  currentPath: string;
 };
 
 export default function DatasetDirectory({
