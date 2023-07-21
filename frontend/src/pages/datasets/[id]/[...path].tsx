@@ -42,11 +42,8 @@ export default function DatasetDetail({ id, path }: DatasetDetailProps) {
         setLoadingDataset(false);
       });
 
-    axiosInstance.get(
-      `/api/datasets/${id}/directory?path=/${path.join(
-        "/"
-      )}`
-    )
+    axiosInstance
+      .get(`/api/datasets/${id}/directory?path=/${path.join("/")}`)
       .then((res) => {
         setDirectory(res.data.file_list);
         setLoadingDirectory(false);
@@ -113,7 +110,6 @@ export async function getServerSideProps({
 }: {
   params: { id: string; path: string };
 }) {
-
   return {
     props: {
       id: params.id,

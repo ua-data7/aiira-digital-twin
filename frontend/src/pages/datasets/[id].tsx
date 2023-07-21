@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { Box, Stack, Heading, Container } from "@chakra-ui/react";
 
-
 import DatasetDirectory from "@/components/datasets/DatasetDirectory";
 import { Dataset } from "@/components/datasets/DatasetTypes";
 
@@ -25,7 +24,8 @@ export default function DatasetDetail({ id }: DatasetDetailProps) {
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    axiosInstance.get(`/api/datasets/${id}`)
+    axiosInstance
+      .get(`/api/datasets/${id}`)
       .then((res) => {
         setDataset(res.data);
         if (res.data.description_file) return res.data.description_file;
@@ -41,12 +41,11 @@ export default function DatasetDetail({ id }: DatasetDetailProps) {
         setLoadingDataset(false);
       });
 
-    axiosInstance.get(`/api/datasets/${id}/directory`)
-      .then((res) => {
-        setDirectory(res.data.file_list);
-        setCurrentPath(res.data.current_path);
-        setLoadingDirectory(false);
-      });
+    axiosInstance.get(`/api/datasets/${id}/directory`).then((res) => {
+      setDirectory(res.data.file_list);
+      setCurrentPath(res.data.current_path);
+      setLoadingDirectory(false);
+    });
   }, []);
 
   return (

@@ -16,11 +16,10 @@ export default function Home() {
   const [datasets, setDatasets] = useState<DatasetArray | null>(null);
 
   useEffect(() => {
-    axiosInstance.get("/api/datasets/")
-      .then((res) => {
-        setDatasets(res.data);
-        setLoading(false);
-      });
+    axiosInstance.get("/api/datasets/").then((res) => {
+      setDatasets(res.data);
+      setLoading(false);
+    });
   }, []);
 
   return (

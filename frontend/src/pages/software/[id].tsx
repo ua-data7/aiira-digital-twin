@@ -103,7 +103,6 @@ export async function getServerSideProps({
 }: {
   params: { id: string };
 }) {
-
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
