@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import type { ApplicationArray } from "@/components/software/SoftwareTypes";
 import SoftwareList from "@/components/software/SoftwareList";
 
+import axios from "@/axios";
+
 /**
  * Applications page
  * Path: /apps
@@ -12,12 +14,10 @@ export default function Applications() {
   const [apps, setApps] = useState<ApplicationArray | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/applications")
-      .then((res) => res.json())
-      .then((data) => {
-        setApps(data);
-        setLoading(false);
-      });
+    axios.get("/api/applications").then((res) => {
+      setApps(res.data);
+      setLoading(false);
+    });
   }, []);
 
   return (

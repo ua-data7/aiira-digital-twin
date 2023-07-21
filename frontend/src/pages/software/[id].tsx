@@ -1,34 +1,31 @@
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-
-import DatasetDirectory from "@/components/datasets/DatasetDirectory";
-
-import { Box, Stack, Heading, Container } from "@chakra-ui/react";
+import { Box, Stack, Heading, Container, Button } from "@chakra-ui/react";
 
 import axiosInstance from "@/axios";
+
+import { Software } from "@/components/software/SoftwareTypes";
 import { Dataset } from "@/components/datasets/DatasetTypes";
 
-type DatasetDetailProps = {
+type AppDetailProps = {
   id: string;
-  path: Array<string>;
+  dataset: Dataset;
 };
 
 /**
- * Dataset Detail page
- * Path: /datasets/[id]
+ * App Detail page
+ * Path: /apps/[id]
  */
-export default function DatasetDetail({ id, path }: DatasetDetailProps) {
-  const [loadingDataset, setLoadingDataset] = useState(true);
-  const [loadingDirectory, setLoadingDirectory] = useState(true);
-  const [dataset, setDataset] = useState<Dataset | null>(null);
-  const [directory, setDirectory] = useState();
+export default function AppDetail({ id }: AppDetailProps) {
+  const [loading, setLoading] = useState(true);
+  const [app, setApp] = useState<Software | null>(null);
   const [description, setDescription] = useState("");
 
   useEffect(() => {
     axiosInstance
-      .get(`/api/datasets/${id}`)
+      .get(`/api/software/${id}`)
       .then((res) => {
-        setDataset(res.data);
+        setApp(res.data);
         if (res.data.description_file) return res.data.description_file;
       })
       .then((file) => {
@@ -39,21 +36,14 @@ export default function DatasetDetail({ id, path }: DatasetDetailProps) {
       })
       .then((fileText) => {
         setDescription(fileText);
-        setLoadingDataset(false);
-      });
-
-    axiosInstance
-      .get(`/api/datasets/${id}/directory?path=/${path.join("/")}`)
-      .then((res) => {
-        setDirectory(res.data.file_list);
-        setLoadingDirectory(false);
+        setLoading(false);
       });
   }, []);
 
   return (
     <>
       <main>
-        {!loadingDataset && !loadingDirectory && dataset && directory && (
+        {!loading && app && (
           <Box position={"relative"}>
             <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 16 }}>
               <Stack spacing={{ base: 10, md: 7 }}>
@@ -62,8 +52,9 @@ export default function DatasetDetail({ id, path }: DatasetDetailProps) {
                   fontSize={{ base: "2xl", sm: "4xl", md: "4xl", lg: "2xl" }}
                   color="brand.800"
                 >
-                  Datasets
+                  Software
                 </Heading>
+
                 <Box
                   maxWidth={"90%"}
                   borderWidth="1px"
@@ -71,7 +62,7 @@ export default function DatasetDetail({ id, path }: DatasetDetailProps) {
                   padding={5}
                   bg={"gray.100"}
                 >
-                  <Stack spacing={{ base: 10, md: 7 }}>
+                  <Stack spacing={{ base: 10, md: 7 }} align="flex-start">
                     <Heading
                       lineHeight={1.1}
                       fontSize={{
@@ -82,19 +73,21 @@ export default function DatasetDetail({ id, path }: DatasetDetailProps) {
                       }}
                       color="brand.800"
                     >
-                      {dataset.display_name}
+                      {app.display_name}
                     </Heading>
                     <ReactMarkdown>{description}</ReactMarkdown>
+                    <Button
+                      as={"a"}
+                      href={app.url}
+                      target="_blank"
+                      // variant="outline"
+                      colorScheme="blue"
+                      marginLeft={2}
+                    >
+                      Download Software
+                    </Button>
                   </Stack>
                 </Box>
-              </Stack>
-
-              <Stack marginTop={12}>
-                <DatasetDirectory
-                  dataset={dataset}
-                  directory={directory}
-                  currentPath=""
-                />
               </Stack>
             </Container>
           </Box>
@@ -108,12 +101,13 @@ export default function DatasetDetail({ id, path }: DatasetDetailProps) {
 export async function getServerSideProps({
   params,
 }: {
-  params: { id: string; path: string };
+  params: { id: string };
 }) {
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
   return {
     props: {
       id: params.id,
-      path: params.path,
     },
   };
 }

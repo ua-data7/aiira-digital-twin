@@ -2,15 +2,10 @@ import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { Box, Stack, Heading, Container } from "@chakra-ui/react";
 
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-} from "@chakra-ui/react";
-
 import DatasetDirectory from "@/components/datasets/DatasetDirectory";
 import { Dataset } from "@/components/datasets/DatasetTypes";
+
+import axiosInstance from "@/axios";
 
 type DatasetDetailProps = {
   id: string;
@@ -25,15 +20,15 @@ export default function DatasetDetail({ id }: DatasetDetailProps) {
   const [loadingDirectory, setLoadingDirectory] = useState(true);
   const [dataset, setDataset] = useState<Dataset | null>(null);
   const [directory, setDirectory] = useState();
-  const [currentPath, setCurrentPath] = useState();
+  const [currentPath, setCurrentPath] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/datasets/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setDataset(data);
-        if (data.description_file) return data.description_file;
+    axiosInstance
+      .get(`/api/datasets/${id}`)
+      .then((res) => {
+        setDataset(res.data);
+        if (res.data.description_file) return res.data.description_file;
       })
       .then((file) => {
         return fetch(file);
@@ -46,13 +41,11 @@ export default function DatasetDetail({ id }: DatasetDetailProps) {
         setLoadingDataset(false);
       });
 
-    fetch(`http://localhost:8000/api/datasets/${id}/directory`)
-      .then((res) => res.json())
-      .then((data) => {
-        setDirectory(data.file_list);
-        setCurrentPath(data.current_path);
-        setLoadingDirectory(false);
-      });
+    axiosInstance.get(`/api/datasets/${id}/directory`).then((res) => {
+      setDirectory(res.data.file_list);
+      setCurrentPath(res.data.current_path);
+      setLoadingDirectory(false);
+    });
   }, []);
 
   return (

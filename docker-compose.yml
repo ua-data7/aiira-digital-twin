@@ -28,6 +28,8 @@ services:
   frontend:
     build: ./frontend
     command: npm run dev
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
     ports:
       - "3005:3005"
     volumes:

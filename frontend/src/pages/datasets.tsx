@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import DatasetList from "@/components/datasets/DatasetList";
-import { Box, Stack, Heading, Container, SimpleGrid } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
+
+import axiosInstance from "@/axios";
 
 import type { DatasetArray } from "@/components/datasets/DatasetTypes";
 
@@ -13,12 +15,10 @@ export default function Datasets() {
   const [datasets, setDatasets] = useState<DatasetArray | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/datasets/")
-      .then((res) => res.json())
-      .then((data) => {
-        setDatasets(data);
-        setLoading(false);
-      });
+    axiosInstance.get("/api/datasets/").then((res) => {
+      setDatasets(res.data);
+      setLoading(false);
+    });
   }, []);
 
   return (
