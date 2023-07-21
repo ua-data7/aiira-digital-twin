@@ -15,7 +15,7 @@ export default function Datasets() {
   const [datasets, setDatasets] = useState<DatasetArray | null>(null);
 
   useEffect(() => {
-    axiosInstance.get("http://localhost:8000/api/datasets/").then((res) => {
+    axiosInstance.get("/api/datasets/").then((res) => {
       setDatasets(res.data);
       setLoading(false);
     });

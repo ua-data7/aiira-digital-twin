@@ -3,25 +3,20 @@ import ReactMarkdown from "react-markdown";
 import { Box, Stack, Heading, Container, Button } from "@chakra-ui/react";
 
 import axiosInstance from "@/axios";
-import axios from "axios";
 
 import { Application } from "@/components/software/SoftwareTypes";
-import { Dataset } from "@/components/datasets/DatasetTypes";
-
 type AppDetailProps = {
   id: string;
-  dataset: Dataset;
 };
 
 /**
  * App Detail page
  * Path: /apps/[id]
  */
-export default function AppDetail({ id, dataset }: AppDetailProps) {
+export default function AppDetail({ id }: AppDetailProps) {
   const [loading, setLoading] = useState(true);
   const [app, setApp] = useState<Application | null>(null);
   const [description, setDescription] = useState("");
-  console.log(dataset);
 
   useEffect(() => {
     axiosInstance
@@ -105,18 +100,12 @@ export async function getServerSideProps({
 }: {
   params: { id: string };
 }) {
-  // Call an external API endpoint to get posts
-  const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_SSR_API_URL}/api/applications/${params.id}`
-  );
-  const dataset = res.data;
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
       id: params.id,
-      dataset: dataset,
     },
   };
 }

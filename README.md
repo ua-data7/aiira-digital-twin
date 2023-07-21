@@ -6,23 +6,24 @@ AIIRA Digital Twin is a web application for displaying a collection of apps and 
 
 1. After cloning the repository, copy `django/digital_twin/settings/local_example.py` to a new file `local.py`.
 2. In `local.py`, set the `SECRET_KEY` attribute to a long random string, and if running remotely, add the host address to the `ALLOWED_HOSTS` list.
-3. Now we can build and run the project with docker compose using the following command:
+3. Create a `.env` file in the root directory of the project (same dir as `docker-compose.yml` file) and add `NEXT_PUBLIC_API_URL=http://HOST_IP:8000`, replacing HOST_IP with the address of the machine you are developing on.
+4. Now we can build and run the project with docker compose using the following command:
 
    ```bash 
    docker compose up --build -d
    ```
-4. Next, apply the database migrations with:
+5. Next, apply the database migrations with:
 
    ```bash
    docker compose exec django python manage.py migrate --noinput
    ```
-5. To verify everything is running correctly, check that you can view the NextJS app at http://localhost:3005 (though no content will be populated yet) and the Django admin login page at http://localhost:8000.
-6. To add site content, we will use the Django admin. Create a Django superuser (has all permissions) with the following command. You will be prompted for a username, email address, and password.
+6. To verify everything is running correctly, check that you can view the NextJS app at http://localhost:3005 (though no content will be populated yet) and the Django admin login page at http://localhost:8000.
+7. To add site content, we will use the Django admin. Create a Django superuser (has all permissions) with the following command. You will be prompted for a username, email address, and password.
 
    ```bash
    docker-compose exec django python manage.py createsuperuser
    ```
-7. Login to the Django admin site at http://localhost:8000 with the newly created superuser account. 
+8. Login to the Django admin site at http://localhost:8000 with the newly created superuser account. 
 
 
 ### Adding site content
