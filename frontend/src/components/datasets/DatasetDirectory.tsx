@@ -16,13 +16,14 @@ import type { Dataset, DirectoryArray } from "./DatasetTypes";
 
 type DatasetDirectoryProps = {
   dataset: Dataset;
-  directory: DirectoryArray;
+  directoryContents: DirectoryArray;
   currentPath: string;
 };
 
 export default function DatasetDirectory({
   dataset,
-  directory,
+  directoryContents,
+  currentPath
 }: DatasetDirectoryProps) {
   return (
     <TableContainer>
@@ -35,7 +36,7 @@ export default function DatasetDirectory({
           </Tr>
         </Thead>
         <Tbody>
-          {directory.map((d, index) => {
+          {directoryContents.map((d, index) => {
             return (
               <Tr key={index}>
                 <Td>

@@ -5,6 +5,7 @@ export interface Dataset {
   data_store_path: string;
   permission: string;
   display_image: string;
+  description_file: string;
 }
 [];
 
@@ -20,3 +21,12 @@ export interface Directory {
 };
 
 export interface DirectoryArray extends Array<Directory> { }
+
+
+export type DatasetDetailProps = {
+  id: string;
+  dataset: Dataset;
+  directoryContents: DirectoryArray;
+  currentPath: string;
+  description: string;
+};
