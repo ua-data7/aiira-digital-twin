@@ -13,7 +13,6 @@ import {
   PopoverContent,
   Image,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
   Center,
   Heading,
@@ -61,7 +60,7 @@ export default function NavBar() {
             aria-label={"Toggle Navigation"}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+        <Flex flex={{ base: 1.5 }} justify={{ base: "center", md: "start" }}>
           <Center as={"a"} href="/">
             <Image
               src="/logos/aiira-logo.png"
@@ -73,9 +72,6 @@ export default function NavBar() {
               <Heading size="xs" color={"gray.500"}>
                 AI Institute for Resilient Agriculture
               </Heading>
-              {/* <Heading size='sm'>
-                Digital Twin
-              </Heading> */}
             </Stack>
           </Center>
           <Spacer />

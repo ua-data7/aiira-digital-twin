@@ -4,6 +4,8 @@ import { ReactNode } from "react";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 
+import { Box, Container } from "@chakra-ui/react";
+
 type LayoutProps = { children?: ReactNode };
 
 export default function Layout({ children }: LayoutProps) {
@@ -16,7 +18,13 @@ export default function Layout({ children }: LayoutProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NavBar />
-      <main>{children}</main>
+      <main>
+        <Box position={"relative"}>
+          <Container maxW={"7xl"} minH={"md"} px={{ base: 10, sm: 8, lg: 16 }}>
+            {children}
+          </Container>
+        </Box>
+      </main>
       <Footer></Footer>
     </>
   );
