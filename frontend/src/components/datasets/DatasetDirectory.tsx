@@ -23,7 +23,7 @@ type DatasetDirectoryProps = {
 export default function DatasetDirectory({
   dataset,
   directoryContents,
-  currentPath
+  currentPath,
 }: DatasetDirectoryProps) {
   return (
     <TableContainer>

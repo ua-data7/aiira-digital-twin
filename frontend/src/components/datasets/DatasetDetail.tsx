@@ -15,7 +15,6 @@ export default function DatasetDetail({
   currentPath,
   description,
 }: DatasetDetailProps) {
-
   return (
     <>
       <Box position={"relative"}>

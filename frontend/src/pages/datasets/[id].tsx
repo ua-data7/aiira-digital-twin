@@ -4,14 +4,11 @@ import { DatasetDetailProps } from "@/components/datasets/DatasetTypes";
 import axios from "axios";
 
 /**
- * Dataset Detail page
+ * Dataset Detail root directory page
  * Path: /datasets/[id]
  */
-export default function DatasetDetailPage(props: DatasetDetailProps) {
-
-  return (
-    <DatasetDetail {...props}></DatasetDetail>
-  );
+export default function DatasetRootDirectory(props: DatasetDetailProps) {
+  return <DatasetDetail {...props}></DatasetDetail>;
 }
 
 // This function gets called at build time
@@ -20,7 +17,6 @@ export async function getServerSideProps({
 }: {
   params: { id: string };
 }) {
-
   // fetch dataset by ID
   const dataset = await axios.get(
     `http://django:8000/api/datasets/${params.id}`
