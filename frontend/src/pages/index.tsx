@@ -26,11 +26,8 @@ export default function Home() {
     <Box position={"relative"}>
       <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 10 }}>
         <Welcome></Welcome>
-        <Divider></Divider>
         <Box py={{ base: 10, sm: 20, lg: 10 }} px={{ base: 5, sm: 5, lg: 5 }}>
-          {!loading && datasets && (
-            <DatasetList datasets={datasets}></DatasetList>
-          )}
+          <DatasetList datasets={datasets} loading={loading}></DatasetList>
         </Box>
       </Container>
     </Box>

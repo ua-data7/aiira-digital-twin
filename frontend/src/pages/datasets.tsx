@@ -22,16 +22,8 @@ export default function Datasets() {
   }, []);
 
   return (
-    <>
-      <main>
-        {!loading && datasets && (
-          <Box position={"relative"}>
-            <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 16 }}>
-              <DatasetList datasets={datasets}></DatasetList>
-            </Container>
-          </Box>
-        )}
-      </main>
-    </>
+    <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 16 }}>
+      <DatasetList datasets={datasets} loading={loading}></DatasetList>
+    </Container>
   );
 }
