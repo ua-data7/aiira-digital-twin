@@ -57,6 +57,30 @@ Navigate to `localhost:3005` and you can view the list of datasets, and when you
 ![Dataset list](docs/media/dataset-detail.png)
 
 
+### Adding Featured Content
+
+To feature a Dataset, Software, or App on the homepage of the site, you can use the Featured Content section in the Django admin.  Currently only one item can be featured.
+
+![Featured content django admin](docs/media/featured-django.png)
+
+Title and description fields are provided to customize the text that shows in the "Featured" section.
+
+To point to the Dataset, Software, or Application object we want to feature, we specify the `content_type` and `object_id`.
+
+When selecting content type: 
++ Software = `software | software`
++ App = `software | application`
++ Dataset = `datasets | dataset`
+
+`object_id` is ID of the particular Dataset/Software/Application object which can be found in the ID column for that object in the Django admin. The entry above displays like this:
+
+![Featured content django admin](docs/media/featured-next.png)
+
+
+
+
+
+
 
 
 

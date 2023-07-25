@@ -1,34 +1,57 @@
 import {
-  Box,
-  Flex,
-  Stack,
-  Heading,
-  Text,
-  Container,
-  Input,
   Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  CardFooter,
+  Center,
+  Container,
+  Heading,
+  Image,
   SimpleGrid,
-  IconProps,
-  Icon,
+  Stack,
+  Text,
 } from "@chakra-ui/react";
 
-export default function Welcome() {
+import { FeaturedContent } from "@/components/FeaturedTypes";
+
+type WelcomeProps = {
+  featured: FeaturedContent | null;
+};
+
+export default function Welcome({ featured }: WelcomeProps) {
+  function getFeaturedUrl(featured: FeaturedContent) {
+    switch (featured.content_type) {
+      case "dataset":
+        return `datasets/${featured.content_object.id}`;
+        break;
+      case "application":
+        return `apps/${featured.content_object.id}`;
+        break;
+      case "software":
+        return `software/${featured.content_object.id}`;
+        break;
+      default:
+        return "/";
+    }
+  }
+
   return (
-    <Box position={"relative"}>
-      <Container
-        as={SimpleGrid}
-        maxW={"7xl"}
-        columns={{ base: 1, md: 2 }}
-        spacing={{ base: 10, lg: 32 }}
-        py={{ base: 10, sm: 20, lg: 16 }}
-      >
+    <Container
+      as={SimpleGrid}
+      maxW={"7xl"}
+      columns={{ base: 1, md: 2 }}
+      spacing={{ base: 10, md: 10, lg: 20 }}
+      py={{ base: 10, sm: 10, lg: 10 }}
+    >
+      <Center>
         <Stack spacing={{ base: 10 }} align="flex-start">
           <Heading
             lineHeight={1.1}
             fontSize={{ base: "4xl" }}
             color={"gray.600"}
           >
-            AIIRA&apos;s mission is to build <br></br>AI-driven{" "}
+            AIIRA&apos;s mission is to build AI-driven{" "}
             <Text
               as={"span"}
               bgGradient="linear(to-r, brand.500,brand.400)"
@@ -42,68 +65,50 @@ export default function Welcome() {
             The Digital Twin platform makes our datasets, apps, and code
             available to the research community.
           </Heading>
+        </Stack>
+      </Center>
 
-          {/* <Button
-            as={"a"}
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"brand.100"}
-            href={"/datasets/"}
-            _hover={{
-              bg: "brand.500",
-            }}
-          >
-            Explore Datasets
-          </Button> */}
-        </Stack>
-        <Stack
-          bg={"gray.50"}
-          rounded={"xl"}
-          p={{ base: 4, sm: 6, md: 8 }}
-          spacing={{ base: 8 }}
-          maxW={{ lg: "lg" }}
-        >
-          <Stack spacing={4}>
-            <Heading
-              color={"gray.800"}
-              lineHeight={1.1}
-              fontSize={{ base: "2xl" }}
-            >
-              Featured App
-            </Heading>
-          </Stack>
-        </Stack>
-      </Container>
-      <Blur
-        position={"absolute"}
-        top={-10}
-        left={-10}
-        style={{ filter: "blur(70px)" }}
-      />
-    </Box>
+      {featured && (
+        <Card maxW="md" padding={2}>
+          <CardBody>
+            {featured.content_object.display_image && (
+              <Center>
+                <Image
+                  src={
+                    process.env.NEXT_PUBLIC_API_URL +
+                    featured.content_object.display_image
+                  }
+                  alt="featured content image"
+                  borderRadius="lg"
+                  maxH={{ base: "100%", sm: "200px" }}
+                />
+              </Center>
+            )}
+            <Stack mt="6" spacing="3">
+              <Heading size="md">{featured.title}</Heading>
+              <Text>{featured.description}</Text>
+            </Stack>
+          </CardBody>
+          <CardFooter>
+            <ButtonGroup spacing="2">
+              <Button
+                as={"a"}
+                href={getFeaturedUrl(featured)}
+                variant="solid"
+                fontSize={"sm"}
+                fontWeight={600}
+                color={"white"}
+                bg={"brand.100"}
+                _hover={{
+                  bg: "brand.300",
+                }}
+              >
+                Learn More
+              </Button>
+            </ButtonGroup>
+          </CardFooter>
+        </Card>
+      )}
+    </Container>
   );
 }
-
-export const Blur = (props: IconProps) => {
-  return (
-    <Icon
-      // width={useBreakpointValue({ base: "100%", md: "40vw", lg: "30vw" })}
-      // zIndex={useBreakpointValue({ base: -1, md: -1, lg: 0 })}
-      height="560px"
-      viewBox="0 0 528 560"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <circle cx="71" cy="61" r="111" fill="#F56565" />
-      <circle cx="244" cy="106" r="139" fill="#ED64A6" />
-      <circle cy="291" r="139" fill="#ED64A6" />
-      <circle cx="80.5" cy="189.5" r="101.5" fill="#ED8936" />
-      <circle cx="196.5" cy="317.5" r="101.5" fill="#ECC94B" />
-      <circle cx="70.5" cy="458.5" r="101.5" fill="#48BB78" />
-      <circle cx="426.5" cy="-0.5" r="101.5" fill="#4299E1" />
-    </Icon>
-  );
-};

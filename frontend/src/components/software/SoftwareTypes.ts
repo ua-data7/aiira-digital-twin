@@ -22,3 +22,10 @@ export interface Application {
 [];
 
 export interface ApplicationArray extends Array<Application> { }
+
+export type SoftwareDetailProps = {
+  id: string;
+  software: Application,
+  description: string,
+  title: 'Apps' | 'Software'
+};

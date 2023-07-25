@@ -18,15 +18,18 @@ type DatasetCardProps = {
 export default function DatasetCard({ dataset }: DatasetCardProps) {
   return (
     <Card
-      direction={{ base: "column", sm: "row" }}
+      direction={{ base: "column", md: "row" }}
       overflow="hidden"
       variant="outline"
     >
-      <Image
-        objectFit="cover"
-        maxW={{ base: "100%", sm: "200px" }}
-        src={dataset.display_image}
-      />
+      {dataset.display_image && (
+        <Image
+          objectFit="cover"
+          maxW={{ base: "100%", sm: "200px" }}
+          src={dataset.display_image}
+          alt="dataset image"
+        />
+      )}
 
       <Stack>
         <CardBody>
@@ -38,7 +41,6 @@ export default function DatasetCard({ dataset }: DatasetCardProps) {
           <Button
             as={"a"}
             href={"/datasets/" + dataset.id}
-            display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
             fontWeight={600}
             color={"white"}
