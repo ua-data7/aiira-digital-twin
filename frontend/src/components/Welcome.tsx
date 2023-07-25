@@ -6,7 +6,6 @@ import {
   CardFooter,
   Center,
   Container,
-  Divider,
   Heading,
   Image,
   SimpleGrid,
@@ -27,9 +26,9 @@ export default function Welcome({ featured }: WelcomeProps) {
         return `datasets/${featured.content_object.id}`;
         break;
       case "application":
-        return `applications/${featured.content_object.id}`;
+        return `apps/${featured.content_object.id}`;
         break;
-      case "application":
+      case "software":
         return `software/${featured.content_object.id}`;
         break;
       default:

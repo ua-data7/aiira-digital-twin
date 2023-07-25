@@ -5,4 +5,5 @@ export type FeaturedContent = {
   title: string;
   description: string;
   content_object: Dataset | Application | Software;
+  content_type: string;
 };
