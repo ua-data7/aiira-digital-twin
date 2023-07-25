@@ -40,7 +40,9 @@ To add a Dataset, fill the fields as follows:
 
 **Display image**: Display image for the dataset.
 
-**Data store path**: Path to the dataset folder on the CyVerse datastore.  Should start with `/iplant/home/...`
+**Data store path**: Path to the dataset folder on the CyVerse datastore.  Should start with `/iplant/home/...`. Required if **URL** field is not specified.
+
+**URL**: Alternatively an external URL can be specified if the dataset is not stored on CyVerse. Required if  **Data store path** field is not specified.
 
 **Permissions**: Only public datasets are supported currently, so select `Public`.
 
