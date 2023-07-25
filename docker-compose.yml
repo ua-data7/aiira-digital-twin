@@ -30,6 +30,7 @@ services:
     command: npm run dev
     environment:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - NEXT_PUBLIC_SERVER_API_URL=http://django:8000
     ports:
       - "3005:3005"
     volumes:

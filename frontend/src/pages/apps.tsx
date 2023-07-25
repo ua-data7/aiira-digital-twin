@@ -3,7 +3,7 @@ import SoftwareList from "@/components/software/SoftwareList";
 import { Container } from "@chakra-ui/react";
 
 import type { ApplicationArray } from "@/components/software/SoftwareTypes";
-import axiosInstance from "@/axios";
+import { axiosClient } from "@/axios";
 
 /**
  * Applications page
@@ -14,7 +14,7 @@ export default function Applications() {
   const [apps, setApps] = useState<ApplicationArray | null>(null);
 
   useEffect(() => {
-    axiosInstance.get("/api/applications").then((res) => {
+    axiosClient.get("/api/applications").then((res) => {
       setApps(res.data);
       setLoading(false);
     });

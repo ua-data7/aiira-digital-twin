@@ -26,6 +26,7 @@ export default function DatasetCard({ dataset }: DatasetCardProps) {
         objectFit="cover"
         maxW={{ base: "100%", sm: "200px" }}
         src={dataset.display_image}
+        alt="dataset image"
       />
 
       <Stack>

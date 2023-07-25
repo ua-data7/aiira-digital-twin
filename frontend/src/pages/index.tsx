@@ -5,7 +5,7 @@ import type { DatasetArray } from "@/components/datasets/DatasetTypes";
 
 import Welcome from "@/components/Welcome";
 import { Box, Container, Divider } from "@chakra-ui/react";
-import axiosInstance from "@/axios";
+import { axiosClient } from "@/axios";
 
 /**
  * Homepage for application.
@@ -16,7 +16,7 @@ export default function Home() {
   const [datasets, setDatasets] = useState<DatasetArray | null>(null);
 
   useEffect(() => {
-    axiosInstance.get("/api/datasets/").then((res) => {
+    axiosClient.get("/api/datasets/").then((res) => {
       setDatasets(res.data);
       setLoading(false);
     });

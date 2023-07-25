@@ -30,6 +30,7 @@ export default function SoftwareCard({
         objectFit="cover"
         maxW={{ base: "100%", sm: "200px" }}
         src={software.display_image}
+        alt="software image"
       />
 
       <Stack>

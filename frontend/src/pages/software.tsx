@@ -4,7 +4,7 @@ import { Container } from "@chakra-ui/react";
 
 import type { SoftwareArray } from "@/components/software/SoftwareTypes";
 
-import axios from "@/axios";
+import { axiosClient } from "@/axios";
 
 /**
  * Software page
@@ -15,7 +15,7 @@ export default function Software() {
   const [software, setSoftware] = useState<SoftwareArray | null>(null);
 
   useEffect(() => {
-    axios.get("/api/software").then((res) => {
+    axiosClient.get("/api/software").then((res) => {
       setSoftware(res.data);
       setLoading(false);
     });
@@ -23,7 +23,11 @@ export default function Software() {
 
   return (
     <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 16 }}>
-        <SoftwareList softwareList={software} title="Software" loading={loading}></SoftwareList>
+      <SoftwareList
+        softwareList={software}
+        title="Software"
+        loading={loading}
+      ></SoftwareList>
     </Container>
   );
 }

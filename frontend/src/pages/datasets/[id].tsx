@@ -1,7 +1,7 @@
 import DatasetDetail from "@/components/datasets/DatasetDetail";
 import { DatasetDetailProps } from "@/components/datasets/DatasetTypes";
 
-import axios from "axios";
+import { axiosServer } from "@/axios";
 
 /**
  * Dataset Detail root directory page
@@ -18,9 +18,7 @@ export async function getServerSideProps({
   params: { id: string };
 }) {
   // fetch dataset by ID
-  const dataset = await axios.get(
-    `http://django:8000/api/datasets/${params.id}`
-  );
+  const dataset = await axiosServer.get(`/api/datasets/${params.id}`);
 
   // get contents of description file, if present
   let description = "";
@@ -31,8 +29,8 @@ export async function getServerSideProps({
   }
 
   // get contents of dataset root directory
-  const directory = await axios.get(
-    `http://django:8000/api/datasets/${params.id}/directory`
+  const directory = await axiosServer.get(
+    `/api/datasets/${params.id}/directory`
   );
 
   return {

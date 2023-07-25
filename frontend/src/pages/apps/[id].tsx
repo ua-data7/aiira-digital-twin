@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { Box, Stack, Heading, Container, Button } from "@chakra-ui/react";
 
-import axiosInstance from "@/axios";
+import { axiosClient } from "@/axios";
 
 import { Application } from "@/components/software/SoftwareTypes";
 type AppDetailProps = {
@@ -19,7 +19,7 @@ export default function AppDetail({ id }: AppDetailProps) {
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    axiosInstance
+    axiosClient
       .get(`/api/applications/${id}`)
       .then((res) => {
         setApp(res.data);
