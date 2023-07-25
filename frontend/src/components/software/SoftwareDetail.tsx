@@ -1,10 +1,5 @@
-import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { Box, Stack, Heading, Container, Button } from "@chakra-ui/react";
-
-import { axiosClient } from "@/axios";
-
-import { Application } from "@/components/software/SoftwareTypes";
 import { SoftwareDetailProps } from "@/components/software/SoftwareTypes";
 
 /**
