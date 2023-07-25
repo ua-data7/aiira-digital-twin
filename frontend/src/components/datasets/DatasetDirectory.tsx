@@ -15,7 +15,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbSeparator,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 
 import { FcFolder, FcFile } from "react-icons/fc";
 import { DownloadIcon } from "@chakra-ui/icons";
@@ -28,26 +28,29 @@ type DatasetDirectoryProps = {
   currentPath: string;
 };
 
-function BreadcrumbMenu({currentPath, rootPath}) {
+type BreadcrumbMenuProps = {
+  currentPath: string;
+  rootPath: string;
+};
 
-  console.log('current path', currentPath)
-  console.log('root path', rootPath)
+function BreadcrumbMenu({ currentPath, rootPath }: BreadcrumbMenuProps) {
+  const rootPathSplit = rootPath.split("/");
+  const currentPathSplit = currentPath.split("/");
+
+  const startIndex = rootPathSplit.length - 1;
+  const menuItems = currentPathSplit.slice(startIndex);
 
   return (
     <Breadcrumb>
-      <BreadcrumbItem>
-        <BreadcrumbLink href='#'>Home</BreadcrumbLink>
-      </BreadcrumbItem>
-
-      <BreadcrumbItem>
-        <BreadcrumbLink href='#'>Docs</BreadcrumbLink>
-      </BreadcrumbItem>
-
-      <BreadcrumbItem isCurrentPage>
-        <BreadcrumbLink href='#'>Breadcrumb</BreadcrumbLink>
-      </BreadcrumbItem>
+      {menuItems.map((item, index) => {
+        return (
+          <BreadcrumbItem key={index}>
+            <BreadcrumbLink>{item}</BreadcrumbLink>
+          </BreadcrumbItem>
+        );
+      })}
     </Breadcrumb>
-  )
+  );
 }
 
 export default function DatasetDirectory({
@@ -55,11 +58,13 @@ export default function DatasetDirectory({
   directoryContents,
   currentPath,
 }: DatasetDirectoryProps) {
-
   return (
-    <Stack>
+    <Stack spacing={6}>
       <Box>
-        <BreadcrumbMenu currentPath={currentPath} rootPath={dataset.data_store_path}></BreadcrumbMenu>
+        <BreadcrumbMenu
+          currentPath={currentPath}
+          rootPath={dataset.data_store_path}
+        ></BreadcrumbMenu>
       </Box>
       <TableContainer>
         <Table variant="simple">
