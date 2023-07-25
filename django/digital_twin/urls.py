@@ -25,6 +25,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/datasets/", include("datasets.urls")),
     path("api/", include("software.urls")),
+    path("api/", include("featured.urls")),
     path("", RedirectView.as_view(url=reverse_lazy('admin:index'))),
 ]
 
