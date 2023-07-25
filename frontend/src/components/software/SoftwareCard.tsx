@@ -22,18 +22,18 @@ export default function SoftwareCard({
 }: SoftwareCardProps) {
   return (
     <Card
-      direction={{ base: "column", sm: "row" }}
+      direction={{ base: "column", md: "row" }}
       overflow="hidden"
       variant="outline"
     >
-      { software.display_image &&
+      {software.display_image && (
         <Image
           objectFit="cover"
           maxW={{ base: "100%", sm: "200px" }}
           src={software.display_image}
           alt="software image"
         />
-      }
+      )}
 
       <Stack>
         <CardBody>
