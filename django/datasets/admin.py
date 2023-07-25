@@ -3,7 +3,7 @@ from datasets.models import Dataset
 
 
 class DatasetAdmin(admin.ModelAdmin):
-    list_display = ("display_name", "data_store_path", "url")
+    list_display = ("id", "display_name", "data_store_path", "url")
 
 
 admin.site.register(Dataset, DatasetAdmin)
