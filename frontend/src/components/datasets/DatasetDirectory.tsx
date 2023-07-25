@@ -20,6 +20,8 @@ import {
 import { FcFolder, FcFile } from "react-icons/fc";
 import { DownloadIcon } from "@chakra-ui/icons";
 
+import { usePathname } from 'next/navigation'
+
 import type { Dataset, DirectoryArray } from "./DatasetTypes";
 
 type DatasetDirectoryProps = {
@@ -31,21 +33,60 @@ type DatasetDirectoryProps = {
 type BreadcrumbMenuProps = {
   currentPath: string;
   rootPath: string;
+  nextPath: string;
+  datasetId: number;
 };
 
-function BreadcrumbMenu({ currentPath, rootPath }: BreadcrumbMenuProps) {
+function BreadcrumbMenu({ currentPath, rootPath, nextPath, datasetId }: BreadcrumbMenuProps) {
+  
+  // root path of dataset (top-level folder)
   const rootPathSplit = rootPath.split("/");
+
+  // current path of dataset (which subfolder is user looking at)
   const currentPathSplit = currentPath.split("/");
 
-  const startIndex = rootPathSplit.length - 1;
-  const menuItems = currentPathSplit.slice(startIndex);
+  // full Next URL path
+  const nextPathSplit = nextPath.split("/")
+
+  console.log(rootPathSplit)
+  console.log(currentPathSplit)
+  console.log(nextPathSplit)
+  
+  // get starting index of dataset root path within full iplant path.
+  // we only want to show Breadcrumb menu starting at dataset root folder, not include 'iplant/home/...)
+  const rootStartIndex = rootPathSplit.length - 1;
+  const menuItems = currentPathSplit.slice(rootStartIndex);
+
+  const datasetPath = nextPathSplit.slice(0, nextPathSplit.length - menuItems.length);
+  
+
+  console.log(nextPath)
+
+  function getHref(index:number) {
+
+    const pathItems = menuItems.slice(0, index + 1)
+
+    console.log(datasetPath)
+    console.log(pathItems)
+    
+    const fullPath = datasetPath.join("/") + "/" + pathItems.join("/")
+    
+    return fullPath
+
+    // http://149.165.153.95:3005/datasets/1/iplant/home/shared/commons_repo/curated/mosaic_raamp2/Codebase
+
+    // http://149.165.153.95:3005/datasets/1/iplant/home/shared/mosaic_raamp2/Codebase
+    
+  }
+
+  // TODO: add href links for breadcrumbs
 
   return (
-    <Breadcrumb>
+    <Breadcrumb fontWeight='medium' fontSize='sm'>
       {menuItems.map((item, index) => {
         return (
-          <BreadcrumbItem key={index}>
-            <BreadcrumbLink>{item}</BreadcrumbLink>
+          <BreadcrumbItem key={index} isCurrentPage={index === menuItems.length - 1}>
+            <BreadcrumbLink href={getHref(index)} fontWeight={index === menuItems.length - 1 && 'bold'}>{item}</BreadcrumbLink>
           </BreadcrumbItem>
         );
       })}
@@ -58,12 +99,17 @@ export default function DatasetDirectory({
   directoryContents,
   currentPath,
 }: DatasetDirectoryProps) {
+
+  const nextPath = usePathname()
+
   return (
     <Stack spacing={6}>
       <Box>
         <BreadcrumbMenu
           currentPath={currentPath}
           rootPath={dataset.data_store_path}
+          nextPath={nextPath}
+          datasetId={dataset.id}
         ></BreadcrumbMenu>
       </Box>
       <TableContainer>
