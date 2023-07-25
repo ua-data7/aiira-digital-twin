@@ -1,5 +1,12 @@
 import ReactMarkdown from "react-markdown";
-import { Box, Container, Heading, Spinner, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Heading,
+  Spinner,
+  Stack,
+} from "@chakra-ui/react";
 
 import DatasetDirectory from "@/components/datasets/DatasetDirectory";
 import { DatasetDetailProps } from "@/components/datasets/DatasetTypes";
@@ -34,7 +41,7 @@ export default function DatasetDetail({
             padding={5}
             bg={"gray.100"}
           >
-            <Stack spacing={{ base: 10, md: 7 }}>
+            <Stack spacing={{ base: 10, md: 7 }} align="flex-start">
               <Heading
                 lineHeight={1.1}
                 fontSize={{
@@ -53,17 +60,30 @@ export default function DatasetDetail({
               ) : (
                 <Box>{dataset.description}</Box>
               )}
+
+              {dataset.url && (
+                <Button
+                  as={"a"}
+                  href={dataset.url}
+                  target="_blank"
+                  colorScheme="blue"
+                  marginLeft={2}
+                >
+                  View Dataset
+                </Button>
+              )}
             </Stack>
           </Box>
         </Stack>
-
-        <Stack marginTop={12}>
-          <DatasetDirectory
-            dataset={dataset}
-            directoryContents={directoryContents}
-            currentPath={currentPath}
-          />
-        </Stack>
+        {dataset.data_store_path && directoryContents && (
+          <Stack marginTop={12}>
+            <DatasetDirectory
+              dataset={dataset}
+              directoryContents={directoryContents}
+              currentPath={currentPath}
+            />
+          </Stack>
+        )}
       </Container>
     </Box>
   );

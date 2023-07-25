@@ -28,17 +28,25 @@ export async function getServerSideProps({
     description = await fileContents.text();
   }
 
-  // get contents of dataset root directory
-  const directory = await axiosServer.get(
-    `/api/datasets/${params.id}/directory`
-  );
+  let directoryContents = null;
+  let currentPath = "";
+
+  if (dataset.data.data_store_path) {
+    // get contents of dataset root directory
+    const directory = await axiosServer.get(
+      `/api/datasets/${params.id}/directory`
+    );
+
+    directoryContents = directory.data.file_list;
+    currentPath = directory.data.current_path;
+  }
 
   return {
     props: {
       id: params.id,
       dataset: dataset.data,
-      directoryContents: directory.data.file_list,
-      currentPath: directory.data.current_path,
+      directoryContents: directoryContents,
+      currentPath: currentPath,
       description: description,
     },
   };

@@ -15,8 +15,22 @@ class Dataset(models.Model):
     description = models.TextField()
     display_image = models.ImageField(upload_to='datasets', blank=True)
 
-    data_store_path = models.CharField(max_length=255)
+    data_store_path = models.CharField(max_length=255, blank=True, null=True)
+    url = models.URLField(max_length=255, blank=True, null=True)
+
     permissions = models.CharField(max_length=7, choices=DatasetPermissions.choices)
     description_file = models.FileField(upload_to='datasets/descriptions', blank=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                name="%(app_label)s_%(class)s_has_source",
+                check=(
+                    models.Q(data_store_path__isnull=True, url__isnull=False)
+                    | models.Q(data_store_path__isnull=False, url__isnull=True)
+                ),
+                violation_error_message="Dataset must have either 'Data store path' or 'URL' specified."
+            )
+        ]
 
 
