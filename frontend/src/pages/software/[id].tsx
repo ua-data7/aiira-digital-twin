@@ -1,100 +1,13 @@
-import { useState, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
-import { Box, Stack, Heading, Container, Button } from "@chakra-ui/react";
-
-import { axiosClient } from "@/axios";
-
-import { Software } from "@/components/software/SoftwareTypes";
-import { Dataset } from "@/components/datasets/DatasetTypes";
-
-type AppDetailProps = {
-  id: string;
-  dataset: Dataset;
-};
+import { axiosServer } from "@/axios";
+import SoftwareDetail from "@/components/software/SoftwareDetail";
+import { SoftwareDetailProps } from "@/components/software/SoftwareTypes";
 
 /**
- * App Detail page
- * Path: /apps/[id]
+ * Software Detail page
+ * Path: /software/[id]
  */
-export default function AppDetail({ id }: AppDetailProps) {
-  const [loading, setLoading] = useState(true);
-  const [app, setApp] = useState<Software | null>(null);
-  const [description, setDescription] = useState("");
-
-  useEffect(() => {
-    axiosClient
-      .get(`/api/software/${id}`)
-      .then((res) => {
-        setApp(res.data);
-        if (res.data.description_file) return res.data.description_file;
-      })
-      .then((file) => {
-        return fetch(file);
-      })
-      .then((fileContents) => {
-        return fileContents.text();
-      })
-      .then((fileText) => {
-        setDescription(fileText);
-        setLoading(false);
-      });
-  }, []);
-
-  return (
-    <>
-      <main>
-        {!loading && app && (
-          <Box position={"relative"}>
-            <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 16 }}>
-              <Stack spacing={{ base: 10, md: 7 }}>
-                <Heading
-                  lineHeight={1.1}
-                  fontSize={{ base: "2xl", sm: "4xl", md: "4xl", lg: "2xl" }}
-                  color="brand.800"
-                >
-                  Software
-                </Heading>
-
-                <Box
-                  maxWidth={"90%"}
-                  borderWidth="1px"
-                  borderRadius={"2xl"}
-                  padding={5}
-                  bg={"gray.100"}
-                >
-                  <Stack spacing={{ base: 10, md: 7 }} align="flex-start">
-                    <Heading
-                      lineHeight={1.1}
-                      fontSize={{
-                        base: "3xl",
-                        sm: "4xl",
-                        md: "4xl",
-                        lg: "3xl",
-                      }}
-                      color="brand.800"
-                    >
-                      {app.display_name}
-                    </Heading>
-                    <ReactMarkdown>{description}</ReactMarkdown>
-                    <Button
-                      as={"a"}
-                      href={app.url}
-                      target="_blank"
-                      // variant="outline"
-                      colorScheme="blue"
-                      marginLeft={2}
-                    >
-                      Download Software
-                    </Button>
-                  </Stack>
-                </Box>
-              </Stack>
-            </Container>
-          </Box>
-        )}
-      </main>
-    </>
-  );
+export default function SoftwareDetailPage(props: SoftwareDetailProps) {
+  return <SoftwareDetail {...props} title="Software"></SoftwareDetail>;
 }
 
 // This function gets called at build time
@@ -103,11 +16,22 @@ export async function getServerSideProps({
 }: {
   params: { id: string };
 }) {
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
+  // fetch software by ID
+  const res = await axiosServer.get(`/api/software/${params.id}`);
+
+  // get contents of description file, if present
+  let description = "";
+
+  if (res.data.description_file) {
+    let fileContents = await fetch(res.data.description_file);
+    description = await fileContents.text();
+  }
+
   return {
     props: {
       id: params.id,
+      software: res.data,
+      description: description,
     },
   };
 }
