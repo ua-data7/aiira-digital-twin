@@ -16,8 +16,8 @@ import type { DatasetArray } from "./DatasetTypes";
 import { TbPlant } from "react-icons/tb";
 
 type DatasetListProps = {
-  datasets: DatasetArray;
-  loading: bool;
+  datasets: DatasetArray | null;
+  loading: boolean;
 };
 
 export default function DatasetList({ datasets, loading }: DatasetListProps) {
@@ -42,7 +42,7 @@ export default function DatasetList({ datasets, loading }: DatasetListProps) {
           </Center>
         ) : (
           <>
-            {datasets.length ? (
+            {datasets && datasets.length ? (
               datasets.map((dataset) => {
                 return (
                   <DatasetCard key={dataset.id} dataset={dataset}></DatasetCard>

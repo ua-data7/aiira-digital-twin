@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import SoftwareList from "@/components/software/SoftwareList";
+import { Container } from "@chakra-ui/react";
 
 import type { SoftwareArray } from "@/components/software/SoftwareTypes";
-import SoftwareList from "@/components/software/SoftwareList";
 
 import axios from "@/axios";
 
@@ -21,12 +22,8 @@ export default function Software() {
   }, []);
 
   return (
-    <>
-      <main>
-        {!loading && software && (
-          <SoftwareList softwareList={software} title="Software"></SoftwareList>
-        )}
-      </main>
-    </>
+    <Container maxW={"7xl"} py={{ base: 10, sm: 20, lg: 16 }}>
+        <SoftwareList softwareList={software} title="Software" loading={loading}></SoftwareList>
+    </Container>
   );
 }

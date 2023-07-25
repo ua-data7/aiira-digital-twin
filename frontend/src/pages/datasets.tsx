@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import DatasetList from "@/components/datasets/DatasetList";
-import { Box, Container } from "@chakra-ui/react";
-
-import axiosInstance from "@/axios";
+import { Container } from "@chakra-ui/react";
 
 import type { DatasetArray } from "@/components/datasets/DatasetTypes";
+import axiosInstance from "@/axios";
 
 /**
  * Datasets page
