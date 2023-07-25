@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.contenttypes.models import ContentType
 
 from .models import FeaturedContent
 from software.models import Application, Software
@@ -32,8 +33,12 @@ class FeaturedContentRelatedField(serializers.RelatedField):
 class FeaturedContentSerializer(serializers.ModelSerializer):
     """DRF serializer for FeaturedContent model."""
 
-    content_object = FeaturedContentRelatedField(read_only=True)
-
+    content_object = FeaturedContentRelatedField(read_only=True) 
+    content_type = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='model'
+    )  
+    
     class Meta:
         model = FeaturedContent
-        fields = ["id", "content_object", "title", "description"]
+        fields = ["id", "content_object", "title", "description", "content_type"]

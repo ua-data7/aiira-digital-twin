@@ -21,7 +21,22 @@ type WelcomeProps = {
 };
 
 export default function Welcome({ featured }: WelcomeProps) {
-  console.log(featured);
+  function getFeaturedUrl(featured: FeaturedContent) {
+    switch (featured.content_type) {
+      case "dataset":
+        return `datasets/${featured.content_object.id}`;
+        break;
+      case "application":
+        return `applications/${featured.content_object.id}`;
+        break;
+      case "application":
+        return `software/${featured.content_object.id}`;
+        break;
+      default:
+        return "/";
+    }
+  }
+
   return (
     <Container
       as={SimpleGrid}
@@ -78,6 +93,8 @@ export default function Welcome({ featured }: WelcomeProps) {
           <CardFooter>
             <ButtonGroup spacing="2">
               <Button
+                as={"a"}
+                href={getFeaturedUrl(featured)}
                 variant="solid"
                 fontSize={"sm"}
                 fontWeight={600}
