@@ -22,12 +22,14 @@ export default function DatasetCard({ dataset }: DatasetCardProps) {
       overflow="hidden"
       variant="outline"
     >
-      <Image
-        objectFit="cover"
-        maxW={{ base: "100%", sm: "200px" }}
-        src={dataset.display_image}
-        alt="dataset image"
-      />
+      { dataset.display_image &&
+        <Image
+          objectFit="cover"
+          maxW={{ base: "100%", sm: "200px" }}
+          src={dataset.display_image}
+          alt="dataset image"
+        />
+      }
 
       <Stack>
         <CardBody>

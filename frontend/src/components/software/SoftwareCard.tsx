@@ -26,12 +26,14 @@ export default function SoftwareCard({
       overflow="hidden"
       variant="outline"
     >
-      <Image
-        objectFit="cover"
-        maxW={{ base: "100%", sm: "200px" }}
-        src={software.display_image}
-        alt="software image"
-      />
+      { software.display_image &&
+        <Image
+          objectFit="cover"
+          maxW={{ base: "100%", sm: "200px" }}
+          src={software.display_image}
+          alt="software image"
+        />
+      }
 
       <Stack>
         <CardBody>
