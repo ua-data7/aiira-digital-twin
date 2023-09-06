@@ -5,4 +5,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /django
 COPY requirements.txt /django/
 RUN pip install -r requirements.txt
+
 COPY . /django/
+
+RUN python manage.py collectstatic --noinput
