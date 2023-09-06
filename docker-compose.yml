@@ -31,7 +31,7 @@ services:
       - postgres
   frontend:
     build: ./frontend
-    command: npm run dev
+    # command: npm run dev
     environment:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
       - NEXT_PUBLIC_SERVER_API_URL=http://django:8000

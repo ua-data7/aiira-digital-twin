@@ -4,4 +4,6 @@ WORKDIR /frontend
 COPY . .
 RUN npm install
 
-EXPOSE 3005
+RUN npm run build
+
+CMD ["npm", "start"]
