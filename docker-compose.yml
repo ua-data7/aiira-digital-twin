@@ -20,7 +20,7 @@ services:
       - ./django:/django
       # - /django/digital_twin/static
       - static_volume:/django/digital_twin/staticfiles
-      - media_volume:/django/digital_twin/mediafiles
+      - media_volume:/django/digital_twin/mediafiles/
     ports:
       - "8000:8000"
     environment:
@@ -53,5 +53,5 @@ services:
       - django
     volumes:
       - static_volume:/django/digital_twin/staticfiles
-      - media_volume:/django/digital_twin/mediafiles
+      - media_volume:/django/digital_twin/mediafiles/
  
