@@ -13,6 +13,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
+
 import { FeaturedContent } from "@/components/FeaturedTypes";
 
 type WelcomeProps = {
@@ -75,7 +78,7 @@ export default function Welcome({ featured }: WelcomeProps) {
               <Center>
                 <Image
                   src={
-                    process.env.NEXT_PUBLIC_API_URL +
+                    publicRuntimeConfig.NEXT_PUBLIC_API_URL +
                     featured.content_object.display_image
                   }
                   alt="featured content image"

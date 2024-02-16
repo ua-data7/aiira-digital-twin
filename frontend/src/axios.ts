@@ -1,14 +1,16 @@
 import axios from 'axios';
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
 
 const axiosClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: publicRuntimeConfig.NEXT_PUBLIC_API_URL,
   headers: {
     'Content-Type': 'application/json'
   }
 })
 
 const axiosServer = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_SERVER_API_URL,
+  baseURL: publicRuntimeConfig.SERVER_API_URL,
   headers: {
     'Content-Type': 'application/json'
   }
