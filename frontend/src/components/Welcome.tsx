@@ -13,7 +13,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import getConfig from 'next/config';
+import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 
 import { FeaturedContent } from "@/components/FeaturedTypes";
