@@ -1,10 +1,10 @@
 services:
   django:
     build: ./django
-    command: python manage.py runserver 0.0.0.0:8000
-    # volumes:
-    #   - ./django:/django
-    #   - /django/digital_twin/static
+    command: gunicorn digital_twin.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - django_static:/django/digital_twin/static
+      - django_media:/django/digital_twin/media
     ports:
       - "8000:8000"
     environment:
@@ -23,15 +23,28 @@ services:
       - SERVER_API_URL=http://django:8000
     ports:
       - "3005:3005"
-    # volumes:
-    #   - ./frontend:/frontend
-    #   - /frontend/node_modules # <-- creates the node_modules in frontend path
-    #   - /frontend/.next # <-- creates the .next folder in frontend path
     depends_on:
       - django
     networks:
       - digital_twin
     restart: always
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - django_static:/nginx/static
+      - django_media:/nginx/media
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - django
+    networks:
+      - digital_twin
+    restart: unless-stopped
+
+volumes:
+  django_static:
+  django_media:
   
 networks:
   digital_twin:
