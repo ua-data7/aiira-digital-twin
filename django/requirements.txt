@@ -4,3 +4,4 @@ djangorestframework==3.14.0
 requests==2.28.2
 django-cors-headers==3.14.0
 Pillow==9.5.0
+gunicorn==21.2.0
