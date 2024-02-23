@@ -6,22 +6,22 @@ AIIRA Digital Twin is a web application for displaying a collection of apps and 
 
 1. After cloning the repository, copy `django/digital_twin/settings/local_example.py` to a new file `local.py`.
 2. In `local.py`, set the `SECRET_KEY` attribute to a long random string, and if running remotely, add the host address to the `ALLOWED_HOSTS` list and add an entry `http://HOST_ADDRESS:3005` to `CORS_ORIGIN_WHITELIST` to allow the NextJS app to make requests to the Django app.
-3. Copy the `.env.example` file in the root directory of the project into `.env`. and, replacing HOST_ADDRESS with the address of the machine you are developing on or `localhost` if developing locally.
+3. Copy the `frontend/.env.example` into `frontend/.env`, replacing `HOST_ADDRESS` with the address of the machine you are developing on or `localhost` if developing locally.
 4. Now we can build and run the project with docker compose using the following command:
 
    ```bash 
-   docker compose up -f docker-compose.dev.yml --build -d
+   docker compose -f docker-compose.dev.yml up --build -d
    ```
 5. Next, apply the database migrations with:
 
    ```bash
-   docker compose exec django python manage.py migrate --noinput
+   docker compose -f docker-compose.dev.yml exec django python manage.py migrate --noinput
    ```
 6. To verify everything is running correctly, check that you can view the NextJS app at http://localhost:3005 (though no content will be populated yet) and the Django admin login page at http://localhost:8000.
 7. To add site content, we will use the Django admin. Create a Django superuser (has all permissions) with the following command. You will be prompted for a username, email address, and password.
 
    ```bash
-   docker-compose exec django python manage.py createsuperuser
+   docker-compose -f docker-compose.dev.yml exec django python manage.py createsuperuser
    ```
 8. Login to the Django admin site at http://HOST_ADDRESS:8000 with the newly created superuser account. 
 
