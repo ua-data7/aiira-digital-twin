@@ -3,7 +3,7 @@ volumes:
 
 services:
   postgres:
-    image: postgres
+    image: postgres:15
     volumes:
       - local_postgres_data:/var/lib/postgresql/data
     environment:
@@ -23,14 +23,14 @@ services:
       - POSTGRES_NAME=postgres_digital_twin
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=postgres
     depends_on:
       - postgres
   frontend:
-    build: ./frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.dev
     command: npm run dev
-    environment:
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-      - NEXT_PUBLIC_SERVER_API_URL=http://django:8000
     ports:
       - "3005:3005"
     volumes:

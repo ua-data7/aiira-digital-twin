@@ -2,15 +2,15 @@
 
 AIIRA Digital Twin is a web application for displaying a collection of apps and datasets stored on the [CyVerse](https://cyverse.org/) Data Store. It uses a [Django](https://www.djangoproject.com/) backend and [NextJS](https://nextjs.org/) frontend.
 
-### Docker setup
+### Development with docker-compose
 
 1. After cloning the repository, copy `django/digital_twin/settings/local_example.py` to a new file `local.py`.
 2. In `local.py`, set the `SECRET_KEY` attribute to a long random string, and if running remotely, add the host address to the `ALLOWED_HOSTS` list and add an entry `http://HOST_ADDRESS:3005` to `CORS_ORIGIN_WHITELIST` to allow the NextJS app to make requests to the Django app.
-3. Create a `.env` file in the root directory of the project (same dir as `docker-compose.yml` file) and add `NEXT_PUBLIC_API_URL=http://HOST_ADDRESS:8000`, replacing HOST_IP with the address of the machine you are developing on.
+3. Copy the `.env.example` file in the root directory of the project into `.env`. and, replacing HOST_ADDRESS with the address of the machine you are developing on or `localhost` if developing locally.
 4. Now we can build and run the project with docker compose using the following command:
 
    ```bash 
-   docker compose up --build -d
+   docker compose up -f docker-compose.dev.yml --build -d
    ```
 5. Next, apply the database migrations with:
 
@@ -23,7 +23,7 @@ AIIRA Digital Twin is a web application for displaying a collection of apps and 
    ```bash
    docker-compose exec django python manage.py createsuperuser
    ```
-8. Login to the Django admin site at http://localhost:8000 with the newly created superuser account. 
+8. Login to the Django admin site at http://HOST_ADDRESS:8000 with the newly created superuser account. 
 
 
 ### Adding site content
