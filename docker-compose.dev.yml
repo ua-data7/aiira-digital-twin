@@ -1,0 +1,43 @@
+volumes:
+  local_postgres_data: {}
+
+services:
+  postgres:
+    image: postgres
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres_digital_twin
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT=5432
+  django:
+    build: ./django
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./django:/django
+      - /django/digital_twin/static
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=postgres_digital_twin
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - postgres
+  frontend:
+    build: ./frontend
+    command: npm run dev
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - NEXT_PUBLIC_SERVER_API_URL=http://django:8000
+    ports:
+      - "3005:3005"
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules # <-- creates the node_modules in frontend path
+      - /frontend/.next # <-- creates the .next folder in frontend path
+    depends_on:
+      - postgres
+      - django
+ 
